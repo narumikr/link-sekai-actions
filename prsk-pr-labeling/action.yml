@@ -1,5 +1,5 @@
 name: 'Project SEKAI PR Labeling'
-description: 'Add random Project SEKAI character labels to pull requests'
+description: 'Set random Project SEKAI character labels to pull requests'
 author: 'Narumikr'
 
 inputs:

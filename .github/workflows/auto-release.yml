@@ -24,7 +24,7 @@ jobs:
         id: detect-major
         run: |
           # Get all version tags and extract the major version.
-          ALL_TAGS=$(git tag -l "v*.*.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$')
+          ALL_TAGS=$(git tag -l "v*.*.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true)
           
           if [ -z "$ALL_TAGS" ]; then
             # If no existing tags are found, begin with v1.
@@ -44,7 +44,7 @@ jobs:
           MAJOR_VERSION=${{ steps.detect-major.outputs.major_version }}
           
           # Get the latest tag for the current major version.
-          LATEST_TAG=$(git tag -l "v${MAJOR_VERSION}.*.*" | sort -V | tail -n 1)
+          LATEST_TAG=$(git tag -l "v${MAJOR_VERSION}.*.*" | sort -V | tail -n 1 || true)
           
           if [ -z "$LATEST_TAG" ]; then
             # If there are no existing tags for that major version.
