@@ -1,4 +1,4 @@
-# ./github/workflow/dependabot.yml
+# ./github/workflows/dependabot.yml
 version: 2
 updates:
   - package-ecosystem: "github-actions"
