@@ -93,7 +93,7 @@ jobs:
           echo "✅ Updated $MAJOR_TAG to point to $NEW_TAG"
 
       - name: Create GitHub Release
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const newTag = '${{ steps.get-latest-tag.outputs.new_tag }}';
