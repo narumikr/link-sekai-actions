@@ -57,10 +57,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Add prsk label
-        uses: Narumikr/link-sekai-actions/prsk-pr-labeling@main
+        uses: Narumikr/link-sekai-actions/prsk-pr-labeling@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+> **Note**: `@v1`の部分には、利用したいバージョンタグを指定してください（例: `@v1`, `@v1.0.0`など）。最新のリリースバージョンは[Releases](https://github.com/Narumikr/link-sekai-actions/releases)ページで確認できます。
 
 2. **動作確認**
 
