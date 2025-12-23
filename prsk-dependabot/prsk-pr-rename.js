@@ -7,8 +7,8 @@ const path = require('path');
 
 // Extract library info from Dependabot PR title
 function parseDependabotTitle(title) {
-  // Pattern: "Bump <library> from <fromVersion> to <toVersion> in <path>"
-  const match = title.match(/Bump (.+?) from (.+?) to (.+?)(?:\s+in\s+.+)?$/);
+  // Pattern: "Bump <library> from <fromVersion> to <toVersion>" optionally followed by " in <path>"
+  const match = title.match(/^Bump (.+) from ([^ ]+) to ([^ ]+)(?: in .+)?$/);
 
   if (!match) {
     return null;
