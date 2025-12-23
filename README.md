@@ -22,6 +22,15 @@
 - **ボカロとの出会いイベント** : 一定の確率で、VOCALOIDキャラクターも登場します
 - **コラボストーリー** : 出会いイベント発生時には、特別なストーリーとともに2人のキャラクターからメッセージが届きます
 
+### prsk-dependabot
+
+- DependabotのPRが作成されたとき、プロセカのキャラがタイトルでお知らせしてくれる
+
+#### Feature
+
+- **ランダムキャラクター選出** : DependabotがPRを作成すると、プロセカキャラクターの中からランダムに1人が選ばれ、タイトルでお知らせしてくれます
+- **お知らせフォーマット** : プロセカキャラがお知らせするタイトルのフォーマットは[ライブラリ名] 【old_ver → new_Ver】
+
 ### 🎪 **_How to use_** 🎪![WONDERLANDS-SHOWTIME-divider](https://capsule-render.vercel.app/api?type=rect&height=2&color=0:ff9900,100:f5f5f7)
 
 #### リポジトリへのワークフロー追加
