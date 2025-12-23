@@ -39,4 +39,8 @@ runs:
               pull_number: pr.number,
               title: newTitle
             });
+          } else {
+            console.log(
+              `PR title "${oldTitle}" does not match the expected Dependabot format; skipping rename.`
+            );
           }
