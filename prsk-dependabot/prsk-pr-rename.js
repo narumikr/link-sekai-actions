@@ -24,8 +24,12 @@ function parseDependabotTitle(title) {
 // Load characters from JSON file
 function loadCharacters(actionPath) {
   const constantsPath = path.join(actionPath, 'prsk-notice.constants.json');
-  const data = fs.readFileSync(constantsPath, 'utf-8');
-  return JSON.parse(data);
+  try {
+    const data = fs.readFileSync(constantsPath, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    throw new Error(`Failed to load characters: ${constantsPath} - ${err.message}`);
+  }
 }
 
 // Select a random character
