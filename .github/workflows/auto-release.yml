@@ -24,19 +24,38 @@ jobs:
       - name: Detect latest major version
         id: detect-major
         run: |
-          # Get all version tags and extract the major version.
-          ALL_TAGS=$(git tag -l "v*.*.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true)
-          
-          if [ -z "$ALL_TAGS" ]; then
-            # If no existing tags are found, begin with v1.
+          # Get major version from semver tags (v1.0.0, v2.1.3, etc.)
+          SEMVER_TAGS=$(git tag -l "v*.*.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true)
+
+          if [ -z "$SEMVER_TAGS" ]; then
+            SEMVER_MAJOR=0
+          else
+            SEMVER_MAJOR=$(echo "$SEMVER_TAGS" | sed 's/^v\([0-9]*\)\..*/\1/' | sort -n | tail -n 1)
+          fi
+          echo "Detected semver major version: $SEMVER_MAJOR"
+
+          # Get major version from major-only tags (v2, v3, etc.)
+          MAJOR_ONLY_TAGS=$(git tag -l "v*" | grep -E '^v[0-9]+$' || true)
+
+          if [ -z "$MAJOR_ONLY_TAGS" ]; then
+            MAJOR_ONLY=0
+          else
+            MAJOR_ONLY=$(echo "$MAJOR_ONLY_TAGS" | sed 's/^v//' | sort -n | tail -n 1)
+          fi
+          echo "Detected major-only tag version: $MAJOR_ONLY"
+
+          # Use the higher of the two as the latest major version
+          if [ "$MAJOR_ONLY" -gt "$SEMVER_MAJOR" ]; then
+            LATEST_MAJOR=$MAJOR_ONLY
+            echo "Using major-only tag: v$LATEST_MAJOR"
+          elif [ "$SEMVER_MAJOR" -gt 0 ]; then
+            LATEST_MAJOR=$SEMVER_MAJOR
+            echo "Using semver major version: v$LATEST_MAJOR"
+          else
             LATEST_MAJOR=1
             echo "No existing tags, starting from v1"
-          else
-            # Get the maximum value of the major version.
-            LATEST_MAJOR=$(echo "$ALL_TAGS" | sed 's/^v\([0-9]*\)\..*/\1/' | sort -n | tail -n 1)
-            echo "Detected latest major version: v$LATEST_MAJOR"
           fi
-          
+
           echo "major_version=$LATEST_MAJOR" >> $GITHUB_OUTPUT
 
       - name: Get latest tag for current major version
