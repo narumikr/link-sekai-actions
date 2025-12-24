@@ -39,11 +39,18 @@ jobs:
           fi
           echo "Detected major-only tag version: $MAJOR_ONLY"
 
+          # Determine if any relevant tags exist at all
+          if [ -n "$SEMVER_TAGS" ] || [ -n "$MAJOR_ONLY_TAGS" ]; then
+            HAS_EXISTING_TAGS=1
+          else
+            HAS_EXISTING_TAGS=0
+          fi
+
           # Use the higher of the two as the latest major version
           if [ "$MAJOR_ONLY" -gt "$SEMVER_MAJOR" ]; then
             LATEST_MAJOR=$MAJOR_ONLY
             echo "Using major-only tag: v$LATEST_MAJOR"
-          elif [ "$SEMVER_MAJOR" -gt 0 ]; then
+          elif [ "$HAS_EXISTING_TAGS" -eq 1 ]; then
             LATEST_MAJOR=$SEMVER_MAJOR
             echo "Using semver major version: v$LATEST_MAJOR"
           else

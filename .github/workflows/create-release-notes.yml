@@ -117,7 +117,7 @@ jobs:
               if (dependabotPRs.length > 0) {
                 releaseNotes += `### Dependencies\n\n`;
                 for (const pr of dependabotPRs) {
-                  releaseNotes += `- ${pr.title} (#${pr.number})\n`;
+                  releaseNotes += `- [${pr.title}](${pr.url}) (#${pr.number})\n`;
                 }
               } else {
                 releaseNotes += `No dependency updates in this release.\n`;
@@ -134,7 +134,7 @@ jobs:
         with:
           script: |
             const currentTag = '${{ steps.get-previous-tag.outputs.current_tag }}';
-            const releaseNotes = `${{ steps.generate-notes.outputs.release_notes }}`;
+            const releaseNotes = ${{ toJSON(steps.generate-notes.outputs.release_notes) }};
 
             await github.rest.repos.createRelease({
               owner: context.repo.owner,
