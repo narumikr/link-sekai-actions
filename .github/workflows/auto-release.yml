@@ -71,15 +71,15 @@ jobs:
             NEW_TAG="v${MAJOR_VERSION}.0.0"
             echo "First tag for v${MAJOR_VERSION}: $NEW_TAG"
           else
-            # Increment minor version.
+            # Increment patch version.
             VERSION=${LATEST_TAG#v}
             MAJOR=$(echo $VERSION | cut -d. -f1)
             MINOR=$(echo $VERSION | cut -d. -f2)
             PATCH=$(echo $VERSION | cut -d. -f3)
-            
-            NEW_MINOR=$((MINOR + 1))
-            NEW_TAG="v${MAJOR}.${NEW_MINOR}.0"
-            
+
+            NEW_PATCH=$((PATCH + 1))
+            NEW_TAG="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+
             echo "Incrementing from $LATEST_TAG to $NEW_TAG"
           fi
           
