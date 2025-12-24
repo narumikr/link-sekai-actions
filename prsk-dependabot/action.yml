@@ -23,7 +23,7 @@ runs:
           // Check if PR author is Dependabot
           const prAuthor = pr.user.login;
           if (prAuthor !== 'dependabot[bot]') {
-            console.log(`PR author "${prAuthor}" is not Dependabot; skipping.`);
+            core.notice(`PR author "${prAuthor}" is not Dependabot; skipping.`);
             return;
           }
 
