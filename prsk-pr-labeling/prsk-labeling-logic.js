@@ -21,7 +21,6 @@ function replaceTemplate(template, replacements) {
   let result = template;
   for (const [key, value] of Object.entries(replacements)) {
     const placeholder = `{${key}}`;
-    // Use split and join for more efficient replacement
     result = result.split(placeholder).join(value);
   }
   return result;
@@ -73,7 +72,7 @@ function getToday() {
 
 // Collaboration comment
 function createCollaborationComment(mainChar, guestChar, prAuthor, collaborationScenarios) {
-  if (!collaborationScenarios || collaborationScenarios.length === 0) {
+  if (!Array.isArray(collaborationScenarios) || collaborationScenarios.length === 0) {
     throw new Error('No collaboration scenarios available');
   }
   const scenario = collaborationScenarios[Math.floor(Math.random() * collaborationScenarios.length)];

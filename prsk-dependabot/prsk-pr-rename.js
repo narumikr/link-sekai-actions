@@ -50,9 +50,12 @@ function selectRandomCharacter(characters) {
 function generateNewTitle(libraryInfo, character) {
   const { library, fromVersion, toVersion } = libraryInfo;
   
-  // Validate character has required fields
-  if (!character || !character.icon || !character.name || !character.comment) {
-    throw new Error('Character object is missing required fields (icon, name, or comment)');
+  // Validate character has required fields with proper types
+  if (!character || 
+      typeof character.icon !== 'string' || character.icon.trim() === '' ||
+      typeof character.name !== 'string' || character.name.trim() === '' ||
+      typeof character.comment !== 'string' || character.comment.trim() === '') {
+    throw new Error('Character object is missing required fields (icon, name, or comment) or fields are empty');
   }
   
   const comment = character.comment.replace('{library}', library);
