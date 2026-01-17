@@ -20,7 +20,9 @@ function loadConstants(actionPath) {
 function replaceTemplate(template, replacements) {
   let result = template;
   for (const [key, value] of Object.entries(replacements)) {
-    result = result.replace(new RegExp(`{${key}}`, 'g'), value);
+    const placeholder = `{${key}}`;
+    // Use split and join for more efficient replacement
+    result = result.split(placeholder).join(value);
   }
   return result;
 }
@@ -52,14 +54,15 @@ function createLabelText(character) {
 // Get today's date in MM/DD format (JST)
 function getToday() {
   const today = new Date();
-  const jstDate = new Date(today.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' }));
+  // More reliable timezone conversion
+  const jstOffset = 9 * 60; // JST is UTC+9
+  const utc = today.getTime() + (today.getTimezoneOffset() * 60000);
+  const jstDate = new Date(utc + (jstOffset * 60000));
 
-  const month = (jstDate.getMonth() + 1).toString();
-  const day = jstDate.getDate().toString();
-  const mm = month.padStart(2, '0');
-  const dd = day.padStart(2, '0');
+  const month = (jstDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = jstDate.getDate().toString().padStart(2, '0');
 
-  return `${mm}/${dd}`;
+  return `${month}/${day}`;
 }
 
 // Collaboration comment
@@ -138,6 +141,11 @@ async function postComment(github, context, body) {
 async function handlePrLabeling(github, context, actionPath) {
   const constants = loadConstants(actionPath);
   const { prskCharacter, vocaloidCharacter, collaborationScenarios } = constants;
+
+  // Validate required data exists
+  if (!context.payload.pull_request || !context.payload.pull_request.user) {
+    throw new Error('Pull request data is missing from context');
+  }
 
   const prAuthor = context.payload.pull_request.user.login;
 

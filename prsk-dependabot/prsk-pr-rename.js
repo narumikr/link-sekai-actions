@@ -42,6 +42,12 @@ function selectRandomCharacter(characters) {
 // Generate new PR title
 function generateNewTitle(libraryInfo, character) {
   const { library, fromVersion, toVersion } = libraryInfo;
+  
+  // Validate character has required fields
+  if (!character || !character.icon || !character.name || !character.comment) {
+    throw new Error('Character object is missing required fields (icon, name, or comment)');
+  }
+  
   const comment = character.comment.replace('{library}', library);
 
   return `${character.icon}${character.name}${character.icon} ${comment}【${fromVersion} → ${toVersion}】`;

@@ -16,6 +16,7 @@ runs:
       with:
         github-token: ${{ inputs.github-token }}
         script: |
+          const core = require('@actions/core');
           const { parseDependabotTitle, loadCharacters, selectRandomCharacter, generateNewTitle } = require('${{ github.action_path }}/prsk-pr-rename.js');
 
           const pr = context.payload.pull_request;
