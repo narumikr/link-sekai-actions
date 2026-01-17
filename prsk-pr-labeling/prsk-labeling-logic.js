@@ -30,6 +30,9 @@ function replaceTemplate(template, replacements) {
 // Random select prsk character
 function selectPrskCharacter(prskCharacter) {
   const keys = Object.keys(prskCharacter);
+  if (keys.length === 0) {
+    throw new Error('No Project SEKAI characters available');
+  }
   const randomKey = keys[Math.floor(Math.random() * keys.length)];
   return prskCharacter[randomKey];
 }
@@ -37,6 +40,9 @@ function selectPrskCharacter(prskCharacter) {
 // Random select vocaloid character
 function selectVocaloidCharacter(vocaloidCharacter) {
   const keys = Object.keys(vocaloidCharacter);
+  if (keys.length === 0) {
+    throw new Error('No Vocaloid characters available');
+  }
   const randomKey = keys[Math.floor(Math.random() * keys.length)];
   return vocaloidCharacter[randomKey];
 }
@@ -67,6 +73,9 @@ function getToday() {
 
 // Collaboration comment
 function createCollaborationComment(mainChar, guestChar, prAuthor, collaborationScenarios) {
+  if (!collaborationScenarios || collaborationScenarios.length === 0) {
+    throw new Error('No collaboration scenarios available');
+  }
   const scenario = collaborationScenarios[Math.floor(Math.random() * collaborationScenarios.length)];
 
   const storyText = replaceTemplate(scenario.story, {

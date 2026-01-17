@@ -7,6 +7,10 @@ const path = require('path');
 
 // Extract library info from Dependabot PR title
 function parseDependabotTitle(title) {
+  if (!title || typeof title !== 'string') {
+    return null;
+  }
+  
   // Pattern: "Bump <library> from <fromVersion> to <toVersion>" optionally followed by " in <path>"
   const match = title.match(/^Bump (.+) from ([^ ]+) to ([^ ]+)(?: in .+)?$/);
 
@@ -35,6 +39,9 @@ function loadCharacters(actionPath) {
 // Select a random character
 function selectRandomCharacter(characters) {
   const keys = Object.keys(characters);
+  if (keys.length === 0) {
+    throw new Error('No characters available');
+  }
   const randomKey = keys[Math.floor(Math.random() * keys.length)];
   return characters[randomKey];
 }
