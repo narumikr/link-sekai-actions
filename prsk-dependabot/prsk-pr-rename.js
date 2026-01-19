@@ -58,7 +58,7 @@ function generateNewTitle(libraryInfo, character) {
     throw new Error('Character object is missing required fields (icon, name, or comment) or fields are empty');
   }
   
-  const comment = character.comment.replace('{library}', library);
+  const comment = character.comment.split('{library}').join(library);
 
   return `${character.icon}${character.name}${character.icon} ${comment}【${fromVersion} → ${toVersion}】`;
 }
