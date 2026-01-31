@@ -3,7 +3,7 @@ name: prsk notice dependabot PR
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened]
 
 jobs:
   rename-pr:
