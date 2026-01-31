@@ -1,0 +1,63 @@
+name: 💫 改善要望
+description: 機能追加や改善のアイデアを提案してください
+title: "[改善要望] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💫 改善要望を教えてください 💫
+        あなたの「こうだったらいいな」という想いを聞かせてください！
+        プロセカの世界と開発をつなぐ link-sekai-actions をより良くするためのアイデアをお待ちしています 🎵
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 🌸 どんなときに必要だと思いましたか？
+      description: この改善要望を思いついた背景や、どんな場面で必要だと感じたかを教えてください
+      placeholder: |
+        例：
+        - PRを開いたとき、もっと詳しいキャラクターの情報も見たいと思った
+        - チームで開発しているときに、キャラクターごとに統計が見られると面白いと思った
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 💡 どんな機能・改善がほしいですか？
+      description: 具体的にどのような機能や改善を実現したいか教えてください
+      placeholder: |
+        例：
+        - キャラクターのプロフィールや誕生日などの情報もコメントに含める
+        - 月ごとに登場したキャラクターの統計を表示する機能
+        - 特定のキャラクターを指定できるようにする
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🎤 他にも考えた案はありますか？
+      description: 代替案や別のアプローチがあれば教えてください（任意）
+      placeholder: |
+        例：
+        - Aという方法も考えたが、Bの方が実装しやすいかもしれない
+        - XXという既存のツールを参考にできるかもしれない
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 🎪 その他、補足や参考情報
+      description: スクリーンショット、リンク、その他何でも自由に書いてください（任意）
+      placeholder: |
+        - 参考になりそうなリポジトリやドキュメントのURL
+        - イメージ画像やスクリーンショット
+        - その他の補足情報
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ありがとうございます！✨
+        あなたの提案がlink-sekai-actionsをさらに素敵にしてくれます 🌈
