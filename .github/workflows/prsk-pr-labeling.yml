@@ -3,7 +3,7 @@ name: PR prsk labeling
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 permissions:
   issues: write
