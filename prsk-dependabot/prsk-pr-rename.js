@@ -60,7 +60,7 @@ function generateNewTitle(libraryInfo, character) {
   
   const comment = character.comment.split('{library}').join(library);
 
-  return `${character.icon}${character.name}${character.icon} ${comment}【${fromVersion} → ${toVersion}】`;
+  return `${character.name} ${character.icon} | ${comment}【${fromVersion} → ${toVersion}】`;
 }
 
 module.exports = {
