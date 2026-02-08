@@ -1,4 +1,4 @@
-![Glow up with...](https://capsule-render.vercel.app/api?type=waving&height=250&color=0:33dd99,100:bb88ee&text=Connection&section=header&reversal=false&fontColor=f5f5f7&fontSize=50&animation=fadeIn&desc=Link%20another%20world&descSize=0&fontAlign=45&fontAlignY=45&descAlign=55&descAlignY=60)
+![Connection](https://capsule-render.vercel.app/api?type=waving&height=250&color=0:33dd99,100:bb88ee&text=Connection&section=header&reversal=false&fontColor=f5f5f7&fontSize=50&animation=fadeIn&desc=Link%20another%20world&descSize=0&fontAlign=45&fontAlignY=45&descAlign=55&descAlignY=60)
 
 # **_link-sekai-actions_**
 
@@ -13,7 +13,7 @@
 ### link-sekai-actions
 
 - Pull Requestが開かれた際に、プロセカのキャラクターラベルを自動で付与する
-- Pull Requestが開かれた際に。プロセカのキャラクターが応援のコメントをしてくれる
+- Pull Requestが開かれた際に、プロセカのキャラクターが応援のコメントをしてくれる
 
 #### Feature
 
@@ -29,7 +29,7 @@
 #### Feature
 
 - **ランダムキャラクター選出** : DependabotがPRを作成すると、プロセカキャラクターの中からランダムに1人が選ばれ、タイトルでお知らせしてくれます
-- **お知らせフォーマット** : プロセカキャラがお知らせするタイトルのフォーマットは[ライブラリ名] 【old_ver → new_Ver】
+- **お知らせフォーマット** : プロセカキャラがお知らせするタイトルのフォーマットは[ライブラリ名] 【old ver → new ver】
 
 ### 🎪 **_How to use_** 🎪![WONDERLANDS-SHOWTIME-divider](https://capsule-render.vercel.app/api?type=rect&height=2&color=0:ff9900,100:f5f5f7)
 
@@ -67,7 +67,7 @@ jobs:
 
 **※ファンメイド作品です**
 
-私の大好きなプロセカという作品、でもｲﾗｽﾄは描けない、書き物や工作なども難しい。
+私の大好きなプロセカという作品、でもイラストは描けない、書き物や工作なども難しい。
 でも何かしら創作をしたいという想いから作り始めました💫
 
 **※本リポジトリはプロセカ公式とは一切関係ありません**
