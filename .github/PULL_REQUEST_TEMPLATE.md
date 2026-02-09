@@ -1,7 +1,6 @@
 <!-- prettier-ignore-start -->
 ![PR-Header](https://capsule-render.vercel.app/api?type=slice&height=39&color=0:ccaa88,100:ffaacc&reversal=false)
 
-
 ## 💫 課題へのリンク 🍀
 
 <!-- リンク先が無い場合は「なし」 -->
