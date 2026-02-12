@@ -29,7 +29,7 @@
 #### Feature
 
 - **ランダムキャラクター選出** : DependabotがPRを作成すると、プロセカキャラクターの中からランダムに1人が選ばれ、タイトルでお知らせしてくれます
-- **お知らせフォーマット** : プロセカキャラがお知らせするタイトルのフォーマットは[ライブラリ名] 【old ver → new ver】
+- **お知らせフォーマット** : プロセカキャラがお知らせするタイトルには、対象ライブラリ名と旧バージョン／新バージョンなどの更新情報が含まれます
 
 ### 🎪 **_How to use_** 🎪![WONDERLANDS-SHOWTIME-divider](https://capsule-render.vercel.app/api?type=rect&height=2&color=0:ff9900,100:f5f5f7)
 
