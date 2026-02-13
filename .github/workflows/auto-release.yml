@@ -21,12 +21,17 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.merge_commit_sha }}
 
+<<<<<<< HEAD
       - name: Extract version from VERSION file
+=======
+      - name: Extract tag from base branch
+>>>>>>> 113700aad12785111e7de19d7cd11f49aad3c641
         id: extract-tag
         shell: bash
         run: |
           set -euo pipefail
 
+<<<<<<< HEAD
           VERSION=$(cat VERSION | tr -d '[:space:]')
           if ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
             echo "VERSION file must contain a valid semver (major.minor.patch). Got: $VERSION"
@@ -35,6 +40,16 @@ jobs:
 
           NEW_TAG="v${VERSION}"
           MAJOR_VERSION=$(echo "$VERSION" | sed -E 's/^([0-9]+)\..*/\1/')
+=======
+          BASE_REF="${{ github.event.pull_request.base.ref }}"
+          if ! echo "$BASE_REF" | grep -Eq '^release/v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Base branch must match release/v<major>.<minor>.<patch>. Got: $BASE_REF"
+            exit 1
+          fi
+
+          NEW_TAG="${BASE_REF#release/}"
+          MAJOR_VERSION=$(echo "$NEW_TAG" | sed -E 's/^v([0-9]+)\..*/\1/')
+>>>>>>> 113700aad12785111e7de19d7cd11f49aad3c641
 
           echo "new_tag=$NEW_TAG" >> "$GITHUB_OUTPUT"
           echo "major_version=$MAJOR_VERSION" >> "$GITHUB_OUTPUT"
