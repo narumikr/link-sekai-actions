@@ -19,101 +19,52 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
 
-      - name: Detect latest major version
-        id: detect-major
+      - name: Extract tag from base branch
+        id: extract-tag
+        shell: bash
         run: |
-          # Get major version from semver tags (v1.0.0, v2.1.3, etc.)
-          SEMVER_TAGS=$(git tag -l "v*.*.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true)
+          set -euo pipefail
 
-          if [ -z "$SEMVER_TAGS" ]; then
-            SEMVER_MAJOR=0
-          else
-            SEMVER_MAJOR=$(echo "$SEMVER_TAGS" | sed 's/^v\([0-9]*\)\..*/\1/' | sort -n | tail -n 1)
-          fi
-          echo "Detected semver major version: $SEMVER_MAJOR"
-
-          # Get major version from major-only tags (v2, v3, etc.)
-          MAJOR_ONLY_TAGS=$(git tag -l "v*" | grep -E '^v[0-9]+$' || true)
-
-          if [ -z "$MAJOR_ONLY_TAGS" ]; then
-            MAJOR_ONLY=0
-          else
-            MAJOR_ONLY=$(echo "$MAJOR_ONLY_TAGS" | sed 's/^v//' | sort -n | tail -n 1)
-          fi
-          echo "Detected major-only tag version: $MAJOR_ONLY"
-
-          # Determine if any relevant tags exist at all
-          if [ -n "$SEMVER_TAGS" ] || [ -n "$MAJOR_ONLY_TAGS" ]; then
-            HAS_EXISTING_TAGS=1
-          else
-            HAS_EXISTING_TAGS=0
+          BASE_REF="${{ github.event.pull_request.base.ref }}"
+          if ! echo "$BASE_REF" | grep -Eq '^release/v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Base branch must match release/v<major>.<minor>.<patch>. Got: $BASE_REF"
+            exit 1
           fi
 
-          # Use the higher of the two as the latest major version
-          if [ "$MAJOR_ONLY" -gt "$SEMVER_MAJOR" ]; then
-            LATEST_MAJOR=$MAJOR_ONLY
-            echo "Using major-only tag: v$LATEST_MAJOR"
-          elif [ "$HAS_EXISTING_TAGS" -eq 1 ]; then
-            LATEST_MAJOR=$SEMVER_MAJOR
-            echo "Using semver major version: v$LATEST_MAJOR"
-          else
-            LATEST_MAJOR=1
-            echo "No existing tags, starting from v1"
-          fi
+          NEW_TAG="${BASE_REF#release/}"
+          MAJOR_VERSION=$(echo "$NEW_TAG" | sed -E 's/^v([0-9]+)\..*/\1/')
 
-          echo "major_version=$LATEST_MAJOR" >> $GITHUB_OUTPUT
+          echo "new_tag=$NEW_TAG" >> "$GITHUB_OUTPUT"
+          echo "major_version=$MAJOR_VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Get latest tag for current major version
-        id: get-latest-tag
+      - name: Configure git
         run: |
-          MAJOR_VERSION=${{ steps.detect-major.outputs.major_version }}
-          
-          # Get the latest tag for the current major version.
-          LATEST_TAG=$(git tag -l "v${MAJOR_VERSION}.*.*" | sort -V | tail -n 1 || true)
-          
-          if [ -z "$LATEST_TAG" ]; then
-            # If there are no existing tags for that major version.
-            NEW_TAG="v${MAJOR_VERSION}.0.0"
-            echo "First tag for v${MAJOR_VERSION}: $NEW_TAG"
-          else
-            # Increment patch version.
-            VERSION=${LATEST_TAG#v}
-            MAJOR=$(echo $VERSION | cut -d. -f1)
-            MINOR=$(echo $VERSION | cut -d. -f2)
-            PATCH=$(echo $VERSION | cut -d. -f3)
-
-            NEW_PATCH=$((PATCH + 1))
-            NEW_TAG="v${MAJOR}.${MINOR}.${NEW_PATCH}"
-
-            echo "Incrementing from $LATEST_TAG to $NEW_TAG"
-          fi
-          
-          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create new version tag
         run: |
-          NEW_TAG=${{ steps.get-latest-tag.outputs.new_tag }}
-          
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          git tag -a $NEW_TAG -m "Auto release $NEW_TAG"
-          git push origin $NEW_TAG
-          
+          NEW_TAG="${{ steps.extract-tag.outputs.new_tag }}"
+
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
+            echo "::error::Tag $NEW_TAG already exists. Bump the version instead of reusing it."
+            exit 1
+          fi
+
+          git tag -a "$NEW_TAG" -m "Auto release $NEW_TAG"
+          git push origin "$NEW_TAG"
+
           echo "✅ Created tag: $NEW_TAG"
 
       - name: Update major version tag
         run: |
-          NEW_TAG=${{ steps.get-latest-tag.outputs.new_tag }}
-          MAJOR_VERSION=${{ steps.detect-major.outputs.major_version }}
+          NEW_TAG="${{ steps.extract-tag.outputs.new_tag }}"
+          MAJOR_VERSION="${{ steps.extract-tag.outputs.major_version }}"
           MAJOR_TAG="v${MAJOR_VERSION}"
-          
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          git tag -fa $MAJOR_TAG -m "Version ${MAJOR_VERSION} (currently $NEW_TAG)"
-          git push origin $MAJOR_TAG --force
-          
+
+          git tag -fa "$MAJOR_TAG" -m "Version ${MAJOR_VERSION} (currently $NEW_TAG)"
+          git push origin "$MAJOR_TAG" --force
+
           echo "✅ Updated $MAJOR_TAG to point to $NEW_TAG"
