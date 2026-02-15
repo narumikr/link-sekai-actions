@@ -1,63 +1,54 @@
-name: 💫 改善要望
-description: 機能追加や改善のアイデアを提案してください
-title: "[改善要望] "
+name: ⭓ 改善要望- Improvement request ⭔
+description: 欲しい機能や改善点を提案してください！ Please suggest any features or improvements you would like to see!
+title: "[Request] "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## 💫 改善要望を教えてください 💫
-        あなたの「こうだったらいいな」という想いを聞かせてください！
-        プロセカの世界と開発をつなぐ link-sekai-actions をより良くするためのアイデアをお待ちしています 🎵
+        ## ⭓ 改善要望提案フォーム - Improvement request form ⭔
+        あなたの「こうだったらいいな！」という想いを聞かせてください！
+        どんなに些細なことでも大丈夫です！その一言が新しい着想につながるかもしれません 🎵
+
+        Got any ideas to make this even better? Let me know! No suggestion is too small. 
+        Your feedback could spark the next big improvement!
+
+        **注意**: すべての項目埋めなくても大丈夫です！思いついたことを自由に書いてください 🍀 - You don't have to fill out every section! Just share whatever is on your mind.
 
   - type: textarea
-    id: motivation
+    id: overview
     attributes:
-      label: 🌸 どんなときに必要だと思いましたか？
-      description: この改善要望を思いついた背景や、どんな場面で必要だと感じたかを教えてください
+      label: ⬟ 改善要望の概要 - Overview of the improvement request ⬠
+      description: 提案したい機能や改善点を簡単に説明してください - Give us a quick overview of your idea or improvement.
       placeholder: |
         例：
-        - PRを開いたとき、もっと詳しいキャラクターの情報も見たいと思った
-        - チームで開発しているときに、キャラクターごとに統計が見られると面白いと思った
+        - PRを開いたときに投稿されるコメントは1キャラにつき、1つではなく複数の中からランダムに選ばれるようにしてほしい
+        - ラベルに登場するキャラクターに偏りがある気がするのでもっと均等に登場させてほしい
     validations:
       required: true
 
   - type: textarea
-    id: proposal
+    id: visuals
     attributes:
-      label: 💡 どんな機能・改善がほしいですか？
-      description: 具体的にどのような機能や改善を実現したいか教えてください
-      placeholder: |
-        例：
-        - キャラクターのプロフィールや誕生日などの情報もコメントに含める
-        - 月ごとに登場したキャラクターの統計を表示する機能
-        - 特定のキャラクターを指定できるようにする
-    validations:
-      required: true
+      label: ⬠ イメージ画像/参考情報 - Visuals/Reference information ⬟
+      description: |
+        もし具体的なイメージ（スクリーンショット、ラフ画、他サービスの例など）があれば、ここに貼り付けてください
+        If you have any screenshots, sketches, or reference links, feel free to drop them here.
+      placeholder: 画像をドラッグ&ドロップするか、URLを貼り付けてください - Drag and drop an image or paste a URL here.
 
   - type: textarea
-    id: alternatives
+    id: additional_notes
     attributes:
-      label: 🎤 他にも考えた案はありますか？
-      description: 代替案や別のアプローチがあれば教えてください（任意）
-      placeholder: |
-        例：
-        - Aという方法も考えたが、Bの方が実装しやすいかもしれない
-        - XXという既存のツールを参考にできるかもしれない
+      label: ⭓ その他 - Anything else? ⭔
+      description: |
+        その他何かあれば自由に書いてください - If there's anything else you'd like to add, please share!
 
-  - type: textarea
-    id: additional
-    attributes:
-      label: 🎪 その他、補足や参考情報
-      description: スクリーンショット、リンク、その他何でも自由に書いてください（任意）
+        プロセカの雑談とかでも大丈夫です！ - Chatting about PJSK is also more than welcome!
       placeholder: |
-        - 参考になりそうなリポジトリやドキュメントのURL
-        - イメージ画像やスクリーンショット
-        - その他の補足情報
+        私はミクといっちゃんが特に好きです🎸
 
   - type: markdown
     attributes:
       value: |
         ---
-        ありがとうございます！✨
-        あなたの提案がlink-sekai-actionsをさらに素敵にしてくれます 🌈
+        **Thank you for your support!💫**
