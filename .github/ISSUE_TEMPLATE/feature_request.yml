@@ -1,5 +1,5 @@
-name: ⭓ 改善要望- Improvement request ⭔
-description: 欲しい機能や改善点を提案してください！ Please suggest any features or improvements you would like to see!
+name: ⭓ 改善要望 - Improvement request ⭔
+description: 欲しい機能や改善点を提案してください！ - Please suggest any features or improvements you would like to see!
 title: "[Request] "
 labels: ["enhancement"]
 body:
@@ -21,7 +21,7 @@ body:
       label: ⬟ 改善要望の概要 - Overview of the improvement request ⬠
       description: 提案したい機能や改善点を簡単に説明してください - Give us a quick overview of your idea or improvement.
       placeholder: |
-        例：
+        例 :
         - PRを開いたときに投稿されるコメントは1キャラにつき、1つではなく複数の中からランダムに選ばれるようにしてほしい
         - ラベルに登場するキャラクターに偏りがある気がするのでもっと均等に登場させてほしい
     validations:
@@ -45,7 +45,9 @@ body:
 
         プロセカの雑談とかでも大丈夫です！ - Chatting about PJSK is also more than welcome!
       placeholder: |
-        私はミクといっちゃんが特に好きです🎸
+        ミクといっちゃんが特に好きです🎸
+
+        あなたの推しは誰ですか？
 
   - type: markdown
     attributes:
