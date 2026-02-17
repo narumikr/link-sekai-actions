@@ -1,5 +1,5 @@
 name: ⭓ バグ報告 - Bug report ⭔
-description: バグや不具合を見つけたら教えてください！ / If you found a bug or something isn't working right, let us know!
+description: バグや不具合を見つけたら教えてください！ - If you found a bug or something isn't working right, let us know!
 title: "[Bug] "
 labels: ["bug"]
 body:
@@ -71,7 +71,7 @@ body:
 
         プロセカの雑談とかでも大丈夫です！ - Chatting about PJSK is also more than welcome!
       placeholder: |
-        ミクといっちゃんが特に好きです🎸
+        ミクといっちゃんが大大大好きです🎸
 
         あなたの推しは誰ですか？
 

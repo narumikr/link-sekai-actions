@@ -32,8 +32,7 @@ body:
     attributes:
       label: ⬠ イメージ画像/参考情報 - Visuals/Reference information ⬟
       description: |
-        もし具体的なイメージ（スクリーンショット、ラフ画、他サービスの例など）があれば、ここに貼り付けてください
-        If you have any screenshots, sketches, or reference links, feel free to drop them here.
+        もし具体的なイメージ（スクリーンショット、ラフ画、他サービスの例など）があれば、ここに貼り付けてください - If you have any screenshots, sketches, or reference links, feel free to drop them here.
       placeholder: 画像をドラッグ&ドロップするか、URLを貼り付けてください - Drag and drop an image or paste a URL here.
 
   - type: textarea
@@ -45,7 +44,7 @@ body:
 
         プロセカの雑談とかでも大丈夫です！ - Chatting about PJSK is also more than welcome!
       placeholder: |
-        ミクといっちゃんが特に好きです🎸
+        ミクといっちゃんが大大大好きです🎸
 
         あなたの推しは誰ですか？
 
