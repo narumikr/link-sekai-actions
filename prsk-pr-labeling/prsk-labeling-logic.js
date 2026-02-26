@@ -26,6 +26,15 @@ function replaceTemplate(template, replacements) {
   return result;
 }
 
+// Random select character comment
+function selectCharacterComment(character, prAuthor) {
+  if (character.comment.length === 0) {
+    throw new Error(`No comments available for character: ${character.name}`);
+  }
+  const randomComment = character.comment[Math.floor(Math.random() * character.comment.length)];
+  return replaceTemplate(randomComment, { prAuthor: prAuthor });
+}
+
 // Random select prsk character
 function selectPrskCharacter(prskCharacter) {
   const keys = Object.keys(prskCharacter);
@@ -83,15 +92,15 @@ function createCollaborationComment(mainChar, guestChar, prAuthor, collaboration
     prAuthor: prAuthor,
   });
 
-  const mainComment = replaceTemplate(mainChar.comment, { prAuthor: prAuthor });
-  const guestComment = replaceTemplate(guestChar.comment, { prAuthor: prAuthor });
+  const mainComment = selectCharacterComment(mainChar, prAuthor);
+  const guestComment = selectCharacterComment(guestChar, prAuthor);
 
   return `## ${scenario.title}\n\n${storyText}\n\n---\n### 🎸 素敵な出会いに\n\n **${mainChar.name}**\n\n${mainComment}\n\n**${guestChar.name}**\n\n${guestComment}\n\n> 2人にはたくさんの元気をもらったな✨ ー${getToday()}ー`;
 }
 
 // Single comment
 function createSingleComment(character, prAuthor) {
-  const comment = replaceTemplate(character.comment, { prAuthor: prAuthor });
+  const comment = selectCharacterComment(character, prAuthor);
 
   return `🎵 **${character.name}** が会いに来てくれた✨\n\n${comment}\n\n> (￣△￣*) .｡oO( 今日も最高な一日だな ー${getToday()}ー`;
 }
@@ -160,7 +169,7 @@ async function handlePrLabeling(github, context, actionPath) {
   // Select random prsk character
   const selectedPrskChar = selectPrskCharacter(prskCharacter);
   const prskLabelName = createLabelText(selectedPrskChar);
-  const prskLabelNameComment = replaceTemplate(selectedPrskChar.comment, {
+  const prskLabelNameComment = replaceTemplate(selectedPrskChar.comment[0], {
     prAuthor: prAuthor,
   });
 
@@ -175,7 +184,9 @@ async function handlePrLabeling(github, context, actionPath) {
     // Select random vocaloid character
     const selectedVocaloid = selectVocaloidCharacter(vocaloidCharacter);
     const vocaloidLabelName = createLabelText(selectedVocaloid);
-    const vocaloidComment = replaceTemplate(selectedVocaloid.comment, { prAuthor: prAuthor });
+    const vocaloidComment = replaceTemplate(selectedVocaloid.comment[0], {
+      prAuthor: prAuthor,
+    });
 
     labelsToAdd.push(vocaloidLabelName);
 
