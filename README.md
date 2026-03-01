@@ -1,8 +1,10 @@
-![Connection](https://capsule-render.vercel.app/api?type=waving&height=250&color=0:33dd99,100:bb88ee&text=Connection&section=header&reversal=false&fontColor=f5f5f7&fontSize=50&animation=fadeIn&desc=Link%20another%20world&descSize=0&fontAlign=45&fontAlignY=45&descAlign=55&descAlignY=60)
+![Hello-SEKAI](https://capsule-render.vercel.app/api?type=waving&height=250&color=0:33dd99,100:bb88ee&text=Hello%20SEKAI&section=header&reversal=false&fontColor=f5f5f7&fontSize=50&animation=fadeIn&desc=Link%20prsk%20GitHub%20Actions&descSize=0&fontAlign=45&fontAlignY=40&descAlign=65&descAlignY=55)
 
 # **_link-sekai-actions_**
 
-![welcome comment](https://readme-typing-svg.herokuapp.com?color=%23ffc096&width=500&lines=「さあ、推し活を始めよう。」;大丈夫&nbsp;世界はこんなに綺麗だと;)
+![welcome comment](https://readme-typing-svg.herokuapp.com?color=%23ffc096&width=500&lines=Hello+there!!+Thanks+for+stopping+by+🎵;Welcome+to+my+SEKAI+💫;Just+showing+big+love+for+prsk+💚;)
+
+<img src="https://img.shields.io/badge/License-Fan_made-lightgreen" alt="License: Fan-made" />
 
 ### 💫 **_Behind the Scenes_** 💫![Leo/need-divider](https://capsule-render.vercel.app/api?type=rect&height=2&color=0:3367cc,100:f5f5f7)
 
