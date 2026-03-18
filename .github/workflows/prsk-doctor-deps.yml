@@ -1,0 +1,24 @@
+name: 'Doctor Deps'
+
+on:
+  schedule:
+    # デフォルト: 毎日 25時 (JST / 01:00 JST = 16:00 UTC) に実行
+    # 変更する場合: cron 式を書き換えてください（UTC 基準）
+    # 例) 0 15 * * * = 00:00 JST | 0 14 * * * = 23:00 JST
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  doctor-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./prsk-doctor-deps
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

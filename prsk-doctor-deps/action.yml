@@ -1,0 +1,59 @@
+name: 'Doctor Deps with Project SEKAI'
+description: 'npm outdated と npm audit を実行し、依存関係ヘルスレポートをコミットします'
+author: 'Narumikr'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+    default: ${{ github.token }}
+  working-directory:
+    description: 'npm コマンドを実行するディレクトリ（モノレポなどで npm プロジェクトがサブディレクトリにある場合に指定）'
+    required: false
+    default: '.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Select PRSK character
+      id: select-character
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const { selectCharacter } = require('${{ github.action_path }}/prsk-doctor-deps.js');
+          selectCharacter('${{ github.action_path }}', core);
+
+    - name: Run npm outdated
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: npm outdated > "$RUNNER_TEMP/npm-outdated.txt" 2>&1 || true
+
+    - name: Run npm audit
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: npm audit --json > "$RUNNER_TEMP/npm-audit.json" 2>/dev/null || true
+
+    - name: Generate report
+      shell: bash
+      env:
+        CHARACTER_NAME: ${{ steps.select-character.outputs.character-name }}
+        CHARACTER_ICON: ${{ steps.select-character.outputs.character-icon }}
+        CHARACTER_COMMENT: ${{ steps.select-character.outputs.character-comment }}
+      run: node "${{ github.action_path }}/prsk-generate-report.js"
+
+    - name: Commit report
+      shell: bash
+      env:
+        GIT_AUTHOR_NAME: ${{ steps.select-character.outputs.character-name }}
+        GIT_AUTHOR_EMAIL: ${{ steps.select-character.outputs.character-email }}
+        GIT_COMMITTER_NAME: ${{ steps.select-character.outputs.character-name }}
+        GIT_COMMITTER_EMAIL: ${{ steps.select-character.outputs.character-email }}
+      run: |
+        git add npm-doctor-report.md
+        if git diff --staged --quiet; then
+          echo "変更なし。コミットをスキップします。"
+        else
+          git commit -m "🩺 ${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新"
+          git push
+        fi
