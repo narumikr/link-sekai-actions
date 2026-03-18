@@ -27,7 +27,18 @@ runs:
     - name: Run npm outdated
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-      run: npm outdated > "$RUNNER_TEMP/npm-outdated.txt" 2>&1 || true
+      run: |
+        if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+          npm ci --ignore-scripts --no-audit --no-fund
+        elif [ -f package.json ]; then
+          npm install --ignore-scripts --no-audit --no-fund
+        else
+          echo "package.json が見つからないため npm コマンドをスキップします。" > "$RUNNER_TEMP/npm-outdated.txt"
+          echo '{}' > "$RUNNER_TEMP/npm-audit.json"
+          exit 0
+        fi
+
+        npm outdated > "$RUNNER_TEMP/npm-outdated.txt" 2>&1 || true
 
     - name: Run npm audit
       shell: bash
