@@ -5,25 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// Extract library info from Dependabot PR title
-function parseDependabotTitle(title) {
-  if (!title || typeof title !== 'string') {
-    return null;
-  }
-  
-  // Pattern: "Bump <library> from <fromVersion> to <toVersion>" optionally followed by " in <path>"
-  const match = title.match(/^Bump (.+) from ([^ ]+) to ([^ ]+)(?: in .+)?$/);
-
-  if (!match) {
-    return null;
-  }
-
-  return {
-    library: match[1],
-    fromVersion: match[2],
-    toVersion: match[3]
-  };
-}
+// Constants
+const LIBRARY_PLACEHOLDER = '{library}';
+const VERSION_SEPARATOR = ' → ';
 
 // Load characters from JSON file
 function loadCharacters(actionPath) {
@@ -49,22 +33,21 @@ function selectRandomCharacter(characters) {
 // Generate new PR title
 function generateNewTitle(libraryInfo, character) {
   const { library, fromVersion, toVersion } = libraryInfo;
-  
+
   // Validate character has required fields with proper types
-  if (!character || 
+  if (!character ||
       typeof character.icon !== 'string' || character.icon.trim() === '' ||
       typeof character.name !== 'string' || character.name.trim() === '' ||
       typeof character.comment !== 'string' || character.comment.trim() === '') {
     throw new Error('Character object is missing required fields (icon, name, or comment) or fields are empty');
   }
-  
-  const comment = character.comment.split('{library}').join(library);
 
-  return `${character.name} ${character.icon} | ${comment}【${fromVersion} → ${toVersion}】`;
+  const comment = character.comment.split(LIBRARY_PLACEHOLDER).join(library);
+
+  return `${character.name} ${character.icon} | ${comment}【${fromVersion}${VERSION_SEPARATOR}${toVersion}】`;
 }
 
 module.exports = {
-  parseDependabotTitle,
   loadCharacters,
   selectRandomCharacter,
   generateNewTitle
