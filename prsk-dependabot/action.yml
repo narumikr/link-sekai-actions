@@ -11,44 +11,49 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Fetch Dependabot metadata
+      id: metadata
+      if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+      uses: dependabot/fetch-metadata@v2
+      with:
+        github-token: ${{ inputs.github-token }}
+
     - name: Rename PR Title
+      if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
       uses: actions/github-script@v8
+      env:
+        DEPENDENCY_NAMES: ${{ steps.metadata.outputs.dependency-names }}
+        PREVIOUS_VERSION: ${{ steps.metadata.outputs.previous-version }}
+        NEW_VERSION: ${{ steps.metadata.outputs.new-version }}
       with:
         github-token: ${{ inputs.github-token }}
         script: |
-          const { parseDependabotTitle, loadCharacters, selectRandomCharacter, generateNewTitle } = require('${{ github.action_path }}/prsk-pr-rename.js');
+          const { loadCharacters, selectRandomCharacter, generateNewTitle } = require('${{ github.action_path }}/prsk-pr-rename.js');
 
-          const pr = context.payload.pull_request;
+          const dependencyNames = process.env.DEPENDENCY_NAMES
+            ? process.env.DEPENDENCY_NAMES.split(',').map(s => s.trim()).filter(Boolean)
+            : [];
+          const library = dependencyNames.join(', ');
+          const fromVersion = process.env.PREVIOUS_VERSION;
+          const toVersion = process.env.NEW_VERSION;
 
-          // Check if PR author is Dependabot
-          const prAuthor = pr.user.login;
-          if (prAuthor !== 'dependabot[bot]') {
-            core.notice(`PR author "${prAuthor}" is not Dependabot; skipping.`);
+          if (!library || !fromVersion || !toVersion) {
+            core.notice('Could not retrieve dependency metadata; skipping rename.');
             return;
           }
 
-          const oldTitle = pr.title;
+          console.log(`Updated Library: ${library}`);
+          console.log(`Version: ${fromVersion} → ${toVersion}`);
 
-          const libraryInfo = parseDependabotTitle(oldTitle);
+          const characters = loadCharacters('${{ github.action_path }}');
+          const character = selectRandomCharacter(characters);
+          const newTitle = generateNewTitle({ library, fromVersion, toVersion }, character);
 
-          if (libraryInfo) {
-            console.log(`Updated Library: ${libraryInfo.library}`);
-            console.log(`Version: ${libraryInfo.fromVersion} → ${libraryInfo.toVersion}`);
+          console.log(`New title: ${newTitle}`);
 
-            const characters = loadCharacters('${{ github.action_path }}');
-            const character = selectRandomCharacter(characters);
-            const newTitle = generateNewTitle(libraryInfo, character);
-
-            console.log(`New title: ${newTitle}`);
-
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-              title: newTitle
-            });
-          } else {
-            console.log(
-              `PR title "${oldTitle}" does not match the expected Dependabot format; skipping rename.`
-            );
-          }
+          await github.rest.pulls.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number,
+            title: newTitle
+          });
