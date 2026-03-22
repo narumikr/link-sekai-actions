@@ -30,7 +30,9 @@ runs:
         script: |
           const { loadCharacters, selectRandomCharacter, generateNewTitle } = require('${{ github.action_path }}/prsk-pr-rename.js');
 
-          const dependencyNames = JSON.parse(process.env.DEPENDENCY_NAMES || '[]');
+          const dependencyNames = process.env.DEPENDENCY_NAMES
+            ? process.env.DEPENDENCY_NAMES.split(',').map(s => s.trim()).filter(Boolean)
+            : [];
           const library = dependencyNames.join(', ');
           const fromVersion = process.env.PREVIOUS_VERSION;
           const toVersion = process.env.NEW_VERSION;
