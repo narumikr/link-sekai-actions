@@ -2,7 +2,7 @@
 
 # **_link-sekai-actions_**
 
-![welcome comment](https://readme-typing-svg.herokuapp.com?color=%23ffc096&width=500&lines=Hello+there!!+Thanks+for+stopping+by+🎵;Welcome+to+my+SEKAI+💫;Just+showing+big+love+for+prsk+💚;)
+![welcome comment](https://readme-typing-svg.herokuapp.com?color=%23ffc096&width=500&lines=Hello+there!!+Thanks+for+stopping+by+🎵;Welcome+to+my+SEKAI+💫;Just+showing+big+love+for+prsk+💚)
 
 <img src="https://img.shields.io/badge/License-Fan_made-lightgreen" alt="License: Fan-made" />
 
