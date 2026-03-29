@@ -1,5 +1,5 @@
-# .github/workflows/prsk-pr-labeling.yml
-name: PR prsk labeling
+# .github/workflows/prsk-cheering.yml
+name: PR prsk cheering
 
 on:
   pull_request:
@@ -8,16 +8,15 @@ on:
 permissions:
   issues: write
   pull-requests: write
-  contents: read
 
 jobs:
-  add-character-label:
+  set-prsk-label-and-comments:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Set prsk label
-        uses: ./prsk-pr-labeling
+      - name: Set prsk label and comments
+        uses: ./prsk-cheering
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

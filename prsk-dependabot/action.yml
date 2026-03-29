@@ -1,6 +1,6 @@
 name: 'Notice Update for Dependabot with Project SEKAI'
 description: 'Rename pull request titles created by Dependabot with Project SEKAI'
-author: 'Narumikr'
+author: 'narumikr'
 
 inputs:
   github-token:

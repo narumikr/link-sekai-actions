@@ -1,0 +1,21 @@
+name: 'Project SEKAI PR Cheering'
+description: 'Set random Project SEKAI character labels and cheering comments to pull requests'
+author: 'narumikr'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+    default: ${{ github.token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set character label and comments
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const { handler } = require('${{ github.action_path }}/workflow.js');
+
+          await handler(github, context, '${{ github.action_path }}');
