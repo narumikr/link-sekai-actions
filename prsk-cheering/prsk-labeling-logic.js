@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { replaceTemplate } = require('./utils');
 
 // Load constants from JSON file
 function loadConstants(actionPath) {
@@ -14,16 +15,6 @@ function loadConstants(actionPath) {
   } catch (err) {
     throw new Error(`Failed to load constants: ${constantsPath} - ${err.message}`);
   }
-}
-
-// Replace template placeholders
-function replaceTemplate(template, replacements) {
-  let result = template;
-  for (const [key, value] of Object.entries(replacements)) {
-    const placeholder = `{${key}}`;
-    result = result.split(placeholder).join(value);
-  }
-  return result;
 }
 
 // Random select prsk character

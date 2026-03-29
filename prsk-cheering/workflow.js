@@ -2,9 +2,9 @@
  * Project SEKAI PR Cheering Workflow
  */
 
+const { replaceTemplate } = require('./utils');
 const {
   loadConstants,
-  replaceTemplate,
   selectPrskCharacter,
   selectVocaloidCharacter,
   isEncounter,

@@ -20,11 +20,12 @@
 │   ├── prsk-dependabot.constants.json # 依存関係更新の設定値
 │   └── prsk-pr-rename.js # PRタイトル調整ロジック
 ├── prsk-cheering/ # チアリング関連のComposite Action
-│   ├── action.yml ＃ Action定義
-│   ├── prsk-comments-logic.js # RP応援コメント投稿ロジック
+│   ├── action.yml # Action定義
+│   ├── workflow.js # メインワークフロー（オーケストレーション）
 │   ├── prsk-labeling-logic.js # PRラベル付与ロジック
-│   ├── prsk-yell-label.constants.json # ラベルや応援コメントの定義
-│   └── workflow.js # メインワークフロー
+│   ├── prsk-comments-logic.js # PR応援コメント投稿ロジック
+│   ├── utils.js # 共通ユーティリティ
+│   └── prsk-yell-label.constants.json # ラベルや応援コメントの定義
 └── .github/ # GitHub ワークフロー
     └── workflows/
 ```

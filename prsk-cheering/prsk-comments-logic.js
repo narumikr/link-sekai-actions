@@ -2,15 +2,7 @@
  * Project SEKAI PR Comments Logic
  */
 
-// Replace template placeholders
-function replaceTemplate(template, replacements) {
-  let result = template;
-  for (const [key, value] of Object.entries(replacements)) {
-    const placeholder = `{${key}}`;
-    result = result.split(placeholder).join(value);
-  }
-  return result;
-}
+const { replaceTemplate } = require('./utils');
 
 // Random select character comment
 function selectCharacterComment(character, prAuthor) {
