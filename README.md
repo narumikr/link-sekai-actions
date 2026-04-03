@@ -2,7 +2,7 @@
 
 # **_link-sekai-actions_**
 
-![welcome comment](https://readme-typing-svg.herokuapp.com?color=%23ffc096&width=500&lines=Hello+there!!+Thanks+for+stopping+by+🎵;Welcome+to+my+SEKAI+💫;Just+showing+big+love+for+prsk+💚;)
+![welcome comment](https://readme-typing-svg.herokuapp.com?color=%23ffc096&width=500&lines=Hello+there!!+Thanks+for+stopping+by+🎵;Welcome+to+my+SEKAI+💫;Just+showing+big+love+for+prsk+💚)
 
 <img src="https://img.shields.io/badge/License-Fan_made-lightgreen" alt="License: Fan-made" />
 
@@ -12,7 +12,7 @@
 
 ### 🎤 **_What we provide_** 🎤![VIVID-BAD-SQUAD-divider](https://capsule-render.vercel.app/api?type=rect&height=2&color=0:ee1166,100:f5f5f7)
 
-### link-sekai-actions
+### prsk-cheering
 
 - Pull Requestが開かれた際に、プロセカのキャラクターラベルを自動で付与する
 - Pull Requestが開かれた際に、プロセカのキャラクターが応援のコメントをしてくれる
@@ -39,8 +39,10 @@
 
 リポジトリの `.github/workflows/` ディレクトリに以下のようなワークフローファイルを作成します：
 
+**prsk-cheering**
+
 ```yaml
-name: PR prsk labeling
+name: PR prsk cheering
 
 on:
   pull_request:
@@ -49,23 +51,41 @@ on:
 permissions:
   issues: write
   pull-requests: write
-  contents: read
 
 jobs:
-  add-character-label:
+  set-prsk-label-and-comments:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Set prsk label and comments
+        uses: narumikr/link-sekai-actions/prsk-cheering@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+```
 
-      - name: Set prsk label
-        uses: Narumikr/link-sekai-actions/prsk-pr-labeling@v1
+**prsk-dependabot**
+
+```yaml
+name: prsk notice dependabot PR
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  rename-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rename PR Title with prsk
+        uses: narumikr/link-sekai-actions/prsk-dependabot@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 > [!note]
-> `@v1`の部分には、利用したいバージョンタグを指定してください（例: `@v1`, `@v1.0.0`など）。最新のリリースバージョンは[Releases](https://github.com/Narumikr/link-sekai-actions/releases)ページで確認できます。
+> `@v1`の部分には、利用したいバージョンタグを指定してください（例: `@v1`, `@v1.0.0`など）。最新のリリースバージョンは[Releases](https://github.com/narumikr/link-sekai-actions/releases)ページで確認できます。
 
 **※ファンメイド作品です**
 

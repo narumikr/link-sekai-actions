@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "github-actions"
-    directory: "/prsk-pr-labeling"
+    directory: "/prsk-cheering"
     schedule:
       interval: "weekly"
   - package-ecosystem: "github-actions"
