@@ -61,10 +61,10 @@ runs:
         GIT_COMMITTER_NAME: ${{ steps.select-character.outputs.character-name }}
         GIT_COMMITTER_EMAIL: ${{ steps.select-character.outputs.character-email }}
       run: |
-        git add npm-doctor-report.md
+        git add HEALTH_CHECK_REPORT.md
         if git diff --staged --quiet; then
           echo "変更なし。コミットをスキップします。"
         else
-          git commit -m "🩺 ${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新"
+          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新 🩺 "
           git push
         fi
