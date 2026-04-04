@@ -23,7 +23,9 @@ function loadCharacters(actionPath) {
     }
     return characters;
   } catch (err) {
-    throw new Error(`Failed to load characters: ${err.message}`);
+    throw new Error(
+      `Failed to load characters (constantsPath: ${constantsPath}, profilePath: ${profilePath}): ${err.message}`
+    );
   }
 }
 

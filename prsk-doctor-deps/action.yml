@@ -1,6 +1,6 @@
 name: 'Doctor Deps with Project SEKAI'
 description: 'npm outdated と npm audit を実行し、依存関係ヘルスレポートをコミットします'
-author: 'Narumikr'
+author: 'narumikr'
 
 inputs:
   github-token:
@@ -15,7 +15,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Select PRSK character
+    - name: Select prsk character
       id: select-character
       uses: actions/github-script@v8
       with:
@@ -60,11 +60,27 @@ runs:
         GIT_AUTHOR_EMAIL: ${{ steps.select-character.outputs.character-email }}
         GIT_COMMITTER_NAME: ${{ steps.select-character.outputs.character-name }}
         GIT_COMMITTER_EMAIL: ${{ steps.select-character.outputs.character-email }}
+        DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
       run: |
+        set -euo pipefail
+
+        default_branch="$DEFAULT_BRANCH"
+        if [ -z "$default_branch" ]; then
+          default_branch="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')"
+        fi
+
+        if [ -z "$default_branch" ]; then
+          echo "default ブランチを特定できないため終了します。"
+          exit 1
+        fi
+
+        git fetch origin "$default_branch"
+        git checkout -B "$default_branch" "origin/$default_branch"
+
         git add NPM_SECURITY_REPORT.md
         if git diff --staged --quiet; then
           echo "変更なし。コミットをスキップします。"
         else
           git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新 🩺 "
-          git push
+          git push origin "HEAD:$default_branch"
         fi

@@ -22,7 +22,9 @@ function loadConstants(actionPath) {
     }
     return data;
   } catch (err) {
-    throw new Error(`Failed to load constants: ${err.message}`);
+    throw new Error(
+      `Failed to load constants (constantsPath: ${constantsPath}, profilePath: ${profilePath}): ${err.message}`
+    );
   }
 }
 

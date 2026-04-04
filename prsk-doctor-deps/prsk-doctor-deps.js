@@ -24,15 +24,11 @@ function selectCharacter(actionPath, core) {
 
   const characterKey = getRandomPrskKey();
 
-  const charConstants = reportComments[characterKey];
+  const charReportComment = reportComments[characterKey];
   const charAccount = accounts[characterKey];
   const charProfile = profiles[characterKey];
 
-  if (!characterKey) {
-    throw new Error('Character key mapping not found.');
-  }
-
-  if (!charConstants) {
+  if (!charReportComment) {
     throw new Error(`Character report comment not found for key: ${characterKey}`);
   }
 
@@ -44,7 +40,7 @@ function selectCharacter(actionPath, core) {
     throw new Error(`Character profile not found for key: ${characterKey}`);
   }
 
-  const comments = charConstants.comment;
+  const comments = charReportComment.comment;
   const comment = Array.isArray(comments)
     ? comments[Math.floor(Math.random() * comments.length)]
     : comments;
