@@ -1,132 +1,28 @@
 {
-  "1": {
-    "name": "初音ミク",
-    "icon": "🎵",
-    "comment": "{library}のアプデだよ！"
-  },
-  "2": {
-    "name": "鏡音リン",
-    "icon": "🍊",
-    "comment": "{library}のアプデだよ！"
-  },
-  "3": {
-    "name": "鏡音レン",
-    "icon": "🍌",
-    "comment": "{library}のアプデだよ！"
-  },
-  "4": {
-    "name": "巡音ルカ",
-    "icon": "🐟",
-    "comment": "{library}のアプデよ！"
-  },
-  "5": {
-    "name": "MEIKO",
-    "icon": "🍷",
-    "comment": "{library}のアプデよ！"
-  },
-  "6": {
-    "name": "KAITO",
-    "icon": "🍨",
-    "comment": "{library}のアプデだよ！"
-  },
-  "7": {
-    "name": "星乃 一歌",
-    "icon": "🎸",
-    "comment": "{library}のアプデだよ！"
-  },
-  "8": {
-    "name": "天馬 咲希",
-    "icon": "🎹",
-    "comment": "{library}のアプデだって！"
-  },
-  "9": {
-    "name": "望月 穂波",
-    "icon": "🥧",
-    "comment": "{library}のアプデだよ！"
-  },
-  "10": {
-    "name": "日野森 志歩",
-    "icon": "🍜",
-    "comment": "{library}のアプデだよ！"
-  },
-  "11": {
-    "name": "花里 みのり",
-    "icon": "🌸",
-    "comment": "{library}のアプデだって！"
-  },
-  "12": {
-    "name": "桐谷 遥",
-    "icon": "🐧",
-    "comment": "{library}のアプデだよ！"
-  },
-  "13": {
-    "name": "桃井 愛莉",
-    "icon": "🍑",
-    "comment": "{library}のアプデよ！"
-  },
-  "14": {
-    "name": "日野森 雫",
-    "icon": "💧",
-    "comment": "{library}のアプデよ！"
-  },
-  "15": {
-    "name": "小豆沢 こはね",
-    "icon": "🐹",
-    "comment": "{library}のアプデだよ！"
-  },
-  "16": {
-    "name": "白石 杏",
-    "icon": "⭐",
-    "comment": "{library}のアプデだってさ！"
-  },
-  "17": {
-    "name": "東雲 彰人",
-    "icon": "🥞",
-    "comment": "{library}のアプデだぞ！"
-  },
-  "18": {
-    "name": "青柳 冬弥",
-    "icon": "☕",
-    "comment": "{library}のアプデのようだ！"
-  },
-  "19": {
-    "name": "天馬 司",
-    "icon": "🌟",
-    "comment": "{library}のアプデだぁぁ！"
-  },
-  "20": {
-    "name": "鳳 えむ",
-    "icon": "🍬",
-    "comment": "{library}のアプデだって！"
-  },
-  "21": {
-    "name": "草薙 寧々",
-    "icon": "🤖",
-    "comment": "{library}のアプデだよ！"
-  },
-  "22": {
-    "name": "神代 類",
-    "icon": "🦄",
-    "comment": "{library}のアプデみたいだね！"
-  },
-  "23": {
-    "name": "宵崎 奏",
-    "icon": "🎼",
-    "comment": "{library}のアプデだよ！"
-  },
-  "24": {
-    "name": "朝比奈 まふゆ",
-    "icon": "❄️",
-    "comment": "{library}のアプデみたい。"
-  },
-  "25": {
-    "name": "東雲 絵名",
-    "icon": "🎨",
-    "comment": "{library}のアプデみたいよ！"
-  },
-  "26": {
-    "name": "暁山 瑞希",
-    "icon": "🎀",
-    "comment": "{library}のアプデだってさ！"
-  }
+  "miku": { "comment": "{library}のアプデだよ！" },
+  "rin": { "comment": "{library}のアプデだよ！" },
+  "len": { "comment": "{library}のアプデだよ！" },
+  "luka": { "comment": "{library}のアプデよ！" },
+  "meiko": { "comment": "{library}のアプデよ！" },
+  "kaito": { "comment": "{library}のアプデだよ！" },
+  "ichika": { "comment": "{library}のアプデだよ！" },
+  "saki": { "comment": "{library}のアプデだって！" },
+  "honami": { "comment": "{library}のアプデだよ！" },
+  "shiho": { "comment": "{library}のアプデだよ！" },
+  "minori": { "comment": "{library}のアプデだって！" },
+  "haruka": { "comment": "{library}のアプデだよ！" },
+  "airi": { "comment": "{library}のアプデよ！" },
+  "shizuku": { "comment": "{library}のアプデよ！" },
+  "kohane": { "comment": "{library}のアプデだよ！" },
+  "an": { "comment": "{library}のアプデだってさ！" },
+  "akito": { "comment": "{library}のアプデだぞ！" },
+  "toya": { "comment": "{library}のアプデのようだ！" },
+  "tsukasa": { "comment": "{library}のアプデだぁぁ！" },
+  "emu": { "comment": "{library}のアプデだって！" },
+  "nene": { "comment": "{library}のアプデだよ！" },
+  "rui": { "comment": "{library}のアプデみたいだね！" },
+  "kanade": { "comment": "{library}のアプデだよ！" },
+  "mafuyu": { "comment": "{library}のアプデみたい。" },
+  "ena": { "comment": "{library}のアプデみたいよ！" },
+  "mizuki": { "comment": "{library}のアプデだってさ！" }
 }
