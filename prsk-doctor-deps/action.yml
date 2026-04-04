@@ -61,7 +61,7 @@ runs:
         GIT_COMMITTER_NAME: ${{ steps.select-character.outputs.character-name }}
         GIT_COMMITTER_EMAIL: ${{ steps.select-character.outputs.character-email }}
       run: |
-        git add HEALTH_CHECK_REPORT.md
+        git add NPM_SECURITY_REPORT.md
         if git diff --staged --quiet; then
           echo "変更なし。コミットをスキップします。"
         else

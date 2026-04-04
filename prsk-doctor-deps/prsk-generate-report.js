@@ -95,5 +95,5 @@ ${auditOutput}
 \`\`\`
 `;
 
-fs.writeFileSync(path.join(workspace, 'HEALTH_CHECK_REPORT.md'), report, 'utf-8');
-console.log('Report generated: HEALTH_CHECK_REPORT.md');
+fs.writeFileSync(path.join(workspace, 'NPM_SECURITY_REPORT.md'), report, 'utf-8');
+console.log('Report generated: NPM_SECURITY_REPORT.md');
