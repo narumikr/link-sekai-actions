@@ -58,12 +58,11 @@ on:
   pull_request:
     types: [opened]
 
-permissions:
-  issues: write
-  pull-requests: write
-
 jobs:
   set-prsk-label-and-comments:
+    permissions:
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Set prsk label and comments
@@ -81,11 +80,10 @@ on:
   pull_request:
     types: [opened]
 
-permissions:
-  pull-requests: write
-
 jobs:
   rename-pr:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Rename PR Title with prsk
@@ -108,11 +106,10 @@ on:
     - cron: "0 16 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   doctor-deps:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
