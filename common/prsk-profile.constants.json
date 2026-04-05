@@ -1,132 +1,132 @@
 {
   "miku": {
     "name": "初音ミク",
-	  "icon": "🎵",
-	  "color": "33ccba"
+    "icon": "🎵",
+    "color": "33ccba"
   },
-	"rin": {
-		"name": "鏡音リン",
-		"icon": "🍊",
-		"color": "ffcc10"
-	},
-	"len": {
-		"name": "鏡音レン",
-		"icon": "🍌",
-		"color": "feee10"
-	},
-	"luka": {
-		"name": "巡音ルカ",
-		"icon": "🐟",
-		"color": "ffbbcc"
-	},
-	"meiko": {
-		"name": "MEIKO",
-		"icon": "🍷",
-		"color": "dd4544"
-	},
-	"kaito": {
-		"name": "KAITO",
-		"icon": "🍨",
-		"color": "3367cc"
-	},
-	"ichika": {
-		"name": "星乃 一歌",
-		"icon": "🎸",
-		"color": "33aaee"
-	},
-	"saki": {
-		"name": "天馬 咲希",
-		"icon": "🎹",
-		"color": "ffc800"
-	},
-	"honami": {
-		"name": "望月 穂波",
-		"icon": "🥧",
-		"color": "ee6666"
-	},
-	"shiho": {
-		"name": "日野森 志歩",
-		"icon": "🍜",
-		"color": "bbdd22"
-	},
-	"minori": {
-		"name": "花里 みのり",
-		"icon": "🌸",
-		"color": "ffc096"
-	},
-	"haruka": {
-		"name": "桐谷 遥",
-		"icon": "🐧",
-		"color": "99ccff"
-	},
-	"airi": {
-		"name": "桃井 愛莉",
-		"icon": "🍑",
-		"color": "ffaacc"
-	},
-	"shizuku": {
-		"name": "日野森 雫",
-		"icon": "💧",
-		"color": "6be6cd"
-	},
-	"kohane": {
-		"name": "小豆沢 こはね",
-		"icon": "🐹",
-		"color": "ff6699"
-	},
-	"an": {
-		"name": "白石 杏",
-		"icon": "⭐",
-		"color": "00bbdd"
-	},
-	"akito": {
-		"name": "東雲 彰人",
-		"icon": "🥞",
-		"color": "ff7722"
-	},
-	"toya": {
-		"name": "青柳 冬弥",
-		"icon": "☕️",
-		"color": "0077dd"
-	},
-	"tsukasa": {
-		"name": "天馬 司",
-		"icon": "🌟",
-		"color": "ffbb00"
-	},
-	"emu": {
-		"name": "鳳 えむ",
-		"icon": "🍬",
-		"color": "ff66bb"
-	},
-	"nene": {
-		"name": "草薙 寧々",
-		"icon": "🤖",
-		"color": "33dd99"
-	},
-	"rui": {
-		"name": "神代 類",
-		"icon": "🦄",
-		"color": "bb88ee"
-	},
-	"kanade": {
-		"name": "宵崎 奏",
-		"icon": "🎼",
-		"color": "bb6688"
-	},
-	"mafuyu": {
-		"name": "朝比奈 まふゆ",
-		"icon": "❄️",
-		"color": "8888cc"
-	},
-	"ena": {
-		"name": "東雲 絵名",
-		"icon": "🎨",
-		"color": "ccaa88"
-	},
-	"mizuki": {
-		"name": "暁山 瑞希",
-		"icon": "🎀",
-		"color": "ddaacc"
-	}
+  "rin": {
+    "name": "鏡音リン",
+    "icon": "🍊",
+    "color": "ffcc10"
+  },
+  "len": {
+    "name": "鏡音レン",
+    "icon": "🍌",
+    "color": "feee10"
+  },
+  "luka": {
+    "name": "巡音ルカ",
+    "icon": "🐟",
+    "color": "ffbbcc"
+  },
+  "meiko": {
+    "name": "MEIKO",
+    "icon": "🍷",
+    "color": "dd4544"
+  },
+  "kaito": {
+    "name": "KAITO",
+    "icon": "🍨",
+    "color": "3367cc"
+  },
+  "ichika": {
+    "name": "星乃 一歌",
+    "icon": "🎸",
+    "color": "33aaee"
+  },
+  "saki": {
+    "name": "天馬 咲希",
+    "icon": "🎹",
+    "color": "ffc800"
+  },
+  "honami": {
+    "name": "望月 穂波",
+    "icon": "🥧",
+    "color": "ee6666"
+  },
+  "shiho": {
+    "name": "日野森 志歩",
+    "icon": "🍜",
+    "color": "bbdd22"
+  },
+  "minori": {
+    "name": "花里 みのり",
+    "icon": "🌸",
+    "color": "ffc096"
+  },
+  "haruka": {
+    "name": "桐谷 遥",
+    "icon": "🐧",
+    "color": "99ccff"
+  },
+  "airi": {
+    "name": "桃井 愛莉",
+    "icon": "🍑",
+    "color": "ffaacc"
+  },
+  "shizuku": {
+    "name": "日野森 雫",
+    "icon": "💧",
+    "color": "6be6cd"
+  },
+  "kohane": {
+    "name": "小豆沢 こはね",
+    "icon": "🐹",
+    "color": "ff6699"
+  },
+  "an": {
+    "name": "白石 杏",
+    "icon": "⭐",
+    "color": "00bbdd"
+  },
+  "akito": {
+    "name": "東雲 彰人",
+    "icon": "🥞",
+    "color": "ff7722"
+  },
+  "toya": {
+    "name": "青柳 冬弥",
+    "icon": "☕️",
+    "color": "0077dd"
+  },
+  "tsukasa": {
+    "name": "天馬 司",
+    "icon": "🌟",
+    "color": "ffbb00"
+  },
+  "emu": {
+    "name": "鳳 えむ",
+    "icon": "🍬",
+    "color": "ff66bb"
+  },
+  "nene": {
+    "name": "草薙 寧々",
+    "icon": "🤖",
+    "color": "33dd99"
+  },
+  "rui": {
+    "name": "神代 類",
+    "icon": "🦄",
+    "color": "bb88ee"
+  },
+  "kanade": {
+    "name": "宵崎 奏",
+    "icon": "🎼",
+    "color": "bb6688"
+  },
+  "mafuyu": {
+    "name": "朝比奈 まふゆ",
+    "icon": "❄️",
+    "color": "8888cc"
+  },
+  "ena": {
+    "name": "東雲 絵名",
+    "icon": "🎨",
+    "color": "ccaa88"
+  },
+  "mizuki": {
+    "name": "暁山 瑞希",
+    "icon": "🎀",
+    "color": "ddaacc"
+  }
 }
