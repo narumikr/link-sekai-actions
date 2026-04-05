@@ -24,6 +24,27 @@ runs:
           const { selectCharacter } = require('${{ github.action_path }}/prsk-doctor-deps.js');
           selectCharacter('${{ github.action_path }}', core);
 
+    - name: Checkout default branch
+      shell: bash
+      env:
+        DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      run: |
+        set -euo pipefail
+
+        default_branch="$DEFAULT_BRANCH"
+        if [ -z "$default_branch" ]; then
+          default_branch="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')"
+        fi
+
+        if [ -z "$default_branch" ]; then
+          echo "default ブランチを特定できないため終了します。"
+          exit 1
+        fi
+
+        git fetch origin "$default_branch"
+        git checkout -B "$default_branch" "origin/$default_branch"
+        echo "RESOLVED_DEFAULT_BRANCH=$default_branch" >> "$GITHUB_ENV"
+
     - name: Run npm outdated
       shell: bash
       working-directory: ${{ inputs.working-directory }}
@@ -60,22 +81,10 @@ runs:
         GIT_AUTHOR_EMAIL: ${{ steps.select-character.outputs.character-email }}
         GIT_COMMITTER_NAME: ${{ steps.select-character.outputs.character-name }}
         GIT_COMMITTER_EMAIL: ${{ steps.select-character.outputs.character-email }}
-        DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
       run: |
         set -euo pipefail
 
-        default_branch="$DEFAULT_BRANCH"
-        if [ -z "$default_branch" ]; then
-          default_branch="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')"
-        fi
-
-        if [ -z "$default_branch" ]; then
-          echo "default ブランチを特定できないため終了します。"
-          exit 1
-        fi
-
-        git fetch origin "$default_branch"
-        git checkout -B "$default_branch" "origin/$default_branch"
+        default_branch="$RESOLVED_DEFAULT_BRANCH"
 
         git add NPM_SECURITY_REPORT.md
         if git diff --staged --quiet; then
