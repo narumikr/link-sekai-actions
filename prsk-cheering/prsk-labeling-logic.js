@@ -9,11 +9,22 @@ const { replaceTemplate } = require('./utils');
 // Load constants from JSON file
 function loadConstants(actionPath) {
   const constantsPath = path.join(actionPath, 'prsk-yell-label.constants.json');
+  const profilePath = path.join(actionPath, '..', 'common', 'prsk-profile.constants.json');
   try {
-    const data = fs.readFileSync(constantsPath, 'utf-8');
-    return JSON.parse(data);
+    const data = JSON.parse(fs.readFileSync(constantsPath, 'utf-8'));
+    const profiles = JSON.parse(fs.readFileSync(profilePath, 'utf-8'));
+
+    for (const key of Object.keys(data.prskCharacter)) {
+      data.prskCharacter[key] = { ...profiles[key], ...data.prskCharacter[key] };
+    }
+    for (const key of Object.keys(data.vocaloidCharacter)) {
+      data.vocaloidCharacter[key] = { ...profiles[key], ...data.vocaloidCharacter[key] };
+    }
+    return data;
   } catch (err) {
-    throw new Error(`Failed to load constants: ${constantsPath} - ${err.message}`);
+    throw new Error(
+      `Failed to load constants (constantsPath: ${constantsPath}, profilePath: ${profilePath}): ${err.message}`
+    );
   }
 }
 
