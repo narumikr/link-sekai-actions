@@ -95,7 +95,7 @@ jobs:
 **prsk-doctor-deps**
 
 ```yaml
-name: "prsk Doctor Deps"
+name: prsk Doctor Deps
 
 on:
   schedule:
