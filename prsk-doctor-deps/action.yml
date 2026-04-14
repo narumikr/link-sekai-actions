@@ -13,7 +13,8 @@ inputs:
     default: '.'
   branch:
     description: 'レポートをコミットするブランチ名。存在しない場合はデフォルトブランチから作成されます。このブランチからデフォルトブランチへのPRが自動的に作成されます。'
-    required: true
+    required: false
+    default: 'chore/npm-security-report'
 
 runs:
   using: 'composite'

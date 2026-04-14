@@ -121,11 +121,11 @@ jobs:
       - uses: narumikr/link-sekai-actions/prsk-doctor-deps@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'chore/npm-security-report'
+          # branch: 'chore/npm-security-report'  # 省略時のデフォルト値。変更したい場合に指定
 ```
 
 > [!note]
-> `branch` にはレポートをコミットするブランチ名を指定してください。ブランチが存在しない場合はデフォルトブランチから自動作成されます。コミット後、指定ブランチからデフォルトブランチへのPRが自動で作成されます。
+> `branch` にはレポートをコミットするブランチ名を指定できます（省略時は `chore/npm-security-report` が使われます）。ブランチが存在しない場合はデフォルトブランチから自動作成されます。コミット後、指定ブランチからデフォルトブランチへのPRが自動で作成されます。
 
 > [!note]
 > `@v6`の部分には、利用したいバージョンタグを指定してください（例: `@v6`, `@v6.0.0`など）。最新のリリースバージョンは[Releases](https://github.com/narumikr/link-sekai-actions/releases)ページで確認できます。
