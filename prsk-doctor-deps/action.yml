@@ -103,7 +103,7 @@ runs:
         if git diff --staged --quiet; then
           echo "変更なし。コミットをスキップします。"
           echo "committed=false" >> "$GITHUB_OUTPUT"
-        else
+          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係ヘルスレポート更新 🩺"
           git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新 🩺 "
           git push origin "HEAD:$RESOLVED_TARGET_BRANCH"
           echo "committed=true" >> "$GITHUB_OUTPUT"
