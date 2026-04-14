@@ -48,6 +48,16 @@ runs:
 
         target_branch="$TARGET_BRANCH"
 
+        if [ -z "$target_branch" ]; then
+          echo "branch が空です。有効なブランチ名を指定してください。"
+          exit 1
+        fi
+
+        if ! git check-ref-format --branch "$target_branch" > /dev/null 2>&1; then
+          echo "branch '${target_branch}' は有効なブランチ名ではありません。"
+          exit 1
+        fi
+
         git fetch origin "$default_branch"
         if git ls-remote --exit-code --heads origin "$target_branch" > /dev/null 2>&1; then
           git fetch origin "$target_branch"
@@ -104,7 +114,7 @@ runs:
           echo "変更なし。コミットをスキップします。"
           echo "committed=false" >> "$GITHUB_OUTPUT"
         else
-          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新 🩺 "
+          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係ヘルスレポート更新 🩺"
           git push origin "HEAD:$RESOLVED_TARGET_BRANCH"
           echo "committed=true" >> "$GITHUB_OUTPUT"
         fi
@@ -115,29 +125,43 @@ runs:
       with:
         github-token: ${{ inputs.github-token }}
         script: |
-          const owner = context.repo.owner;
-          const repo = context.repo.repo;
-          const head = process.env.RESOLVED_TARGET_BRANCH;
-          const base = process.env.RESOLVED_DEFAULT_BRANCH;
-          const characterIcon = '${{ steps.select-character.outputs.character-icon }}';
-          const characterName = '${{ steps.select-character.outputs.character-name }}';
+          try {
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const head = process.env.RESOLVED_TARGET_BRANCH;
+            const base = process.env.RESOLVED_DEFAULT_BRANCH;
 
-          const { data: pulls } = await github.rest.pulls.list({
-            owner, repo, head: `${owner}:${head}`, base, state: 'open',
-          });
+            if (!head) {
+              core.setFailed('RESOLVED_TARGET_BRANCH が未設定です。');
+              return;
+            }
+            if (!base) {
+              core.setFailed('RESOLVED_DEFAULT_BRANCH が未設定です。');
+              return;
+            }
 
-          if (pulls.length > 0) {
-            core.info(`既存のPRが見つかりました: ${pulls[0].html_url}`);
-            return;
+            const characterIcon = '${{ steps.select-character.outputs.character-icon }}';
+            const characterName = '${{ steps.select-character.outputs.character-name }}';
+
+            const { data: pulls } = await github.rest.pulls.list({
+              owner, repo, head: `${owner}:${head}`, base, state: 'open',
+            });
+
+            if (pulls.length > 0) {
+              core.info(`既存のPRが見つかりました: ${pulls[0].html_url}`);
+              return;
+            }
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner,
+              repo,
+              title: `${characterIcon} | 依存関係ヘルスレポート更新 🩺`,
+              body: `${characterIcon} **${characterName}** が依存関係ヘルスレポートを更新しました。\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
+              head,
+              base,
+            });
+
+            core.info(`PRを作成しました: ${pr.html_url}`);
+          } catch (error) {
+            core.setFailed(`PR の作成に失敗しました: ${error.message}`);
           }
-
-          const { data: pr } = await github.rest.pulls.create({
-            owner,
-            repo,
-            title: `${characterIcon} | 依存関係ヘルスレポート更新 🩺`,
-            body: `${characterIcon} **${characterName}** が依存関係ヘルスレポートを更新しました。\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
-            head,
-            base,
-          });
-
-          core.info(`PRを作成しました: ${pr.html_url}`);
