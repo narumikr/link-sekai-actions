@@ -59,12 +59,7 @@ runs:
         fi
 
         git fetch origin "$default_branch"
-        if git ls-remote --exit-code --heads origin "$target_branch" > /dev/null 2>&1; then
-          git fetch origin "$target_branch"
-          git checkout -B "$target_branch" "origin/$target_branch"
-        else
-          git checkout -B "$target_branch" "origin/$default_branch"
-        fi
+        git checkout -B "$target_branch" "origin/$default_branch"
 
         echo "RESOLVED_DEFAULT_BRANCH=$default_branch" >> "$GITHUB_ENV"
         echo "RESOLVED_TARGET_BRANCH=$target_branch" >> "$GITHUB_ENV"
@@ -115,7 +110,7 @@ runs:
           echo "committed=false" >> "$GITHUB_OUTPUT"
         else
           git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係ヘルスレポート更新 🩺"
-          git push origin "HEAD:$RESOLVED_TARGET_BRANCH"
+          git push --force-with-lease origin "HEAD:$RESOLVED_TARGET_BRANCH"
           echo "committed=true" >> "$GITHUB_OUTPUT"
         fi
 
