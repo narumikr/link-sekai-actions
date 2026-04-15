@@ -45,6 +45,7 @@ function selectCharacter(actionPath, core) {
     ? comments[Math.floor(Math.random() * comments.length)]
     : comments;
 
+  core.setOutput('character-key', characterKey);
   core.setOutput('character-name', charAccount.name);
   core.setOutput('character-email', charAccount.email);
   core.setOutput('character-icon', charProfile.icon);

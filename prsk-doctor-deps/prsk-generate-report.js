@@ -1,6 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 
+function getPrComment(actionPath, characterKey) {
+  const constantsPath = path.join(actionPath, 'prsk-report-comment.constants.json');
+  const comments = JSON.parse(fs.readFileSync(constantsPath, 'utf-8'));
+  const char = comments[characterKey];
+  if (!char) {
+    throw new Error(`Character not found for key: ${characterKey}`);
+  }
+  const messages = char.comment;
+  return Array.isArray(messages)
+    ? messages[Math.floor(Math.random() * messages.length)]
+    : messages;
+}
+
+module.exports = { getPrComment };
+
+if (require.main !== module) return;
+
 function getJSTDatetime() {
   const now = new Date();
   const jstDate = new Date(now.getTime() + 9 * 60 * 60 * 1000);

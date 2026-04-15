@@ -136,8 +136,12 @@ runs:
               return;
             }
 
+            const characterKey = '${{ steps.select-character.outputs.character-key }}';
             const characterIcon = '${{ steps.select-character.outputs.character-icon }}';
             const characterName = '${{ steps.select-character.outputs.character-name }}';
+
+            const { getPrComment } = require('${{ github.action_path }}/prsk-generate-report.js');
+            const prComment = getPrComment('${{ github.action_path }}', characterKey);
 
             const { data: pulls } = await github.rest.pulls.list({
               owner, repo, head: `${owner}:${head}`, base, state: 'open',
@@ -152,7 +156,7 @@ runs:
               owner,
               repo,
               title: `${characterIcon} | 依存関係ヘルスレポート更新 🩺`,
-              body: `${characterIcon} **${characterName}** が依存関係ヘルスレポートを更新しました。\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
+              body: `${characterIcon} **${characterName}** ${prComment}\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
               head,
               base,
             });
