@@ -148,7 +148,15 @@ runs:
             });
 
             if (pulls.length > 0) {
-              core.info(`既存のPRが見つかりました: ${pulls[0].html_url}`);
+              const existingPr = pulls[0];
+              await github.rest.pulls.update({
+                owner,
+                repo,
+                pull_number: existingPr.number,
+                title: `${characterIcon} | 依存関係ヘルスレポート更新 🩺`,
+                body: `${characterIcon} **${characterName}** ${prComment}\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
+              });
+              core.info(`既存のPRを更新しました: ${existingPr.html_url}`);
               return;
             }
 
