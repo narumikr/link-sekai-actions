@@ -12,11 +12,20 @@ const VERSION_SEPARATOR = ' → ';
 // Load characters from JSON file
 function loadCharacters(actionPath) {
   const constantsPath = path.join(actionPath, 'prsk-notice.constants.json');
+  const profilePath = path.join(actionPath, '..', 'common', 'prsk-profile.constants.json');
   try {
-    const data = fs.readFileSync(constantsPath, 'utf-8');
-    return JSON.parse(data);
+    const comments = JSON.parse(fs.readFileSync(constantsPath, 'utf-8'));
+    const profiles = JSON.parse(fs.readFileSync(profilePath, 'utf-8'));
+
+    const characters = {};
+    for (const key of Object.keys(comments)) {
+      characters[key] = { ...profiles[key], ...comments[key] };
+    }
+    return characters;
   } catch (err) {
-    throw new Error(`Failed to load characters: ${constantsPath} - ${err.message}`);
+    throw new Error(
+      `Failed to load characters (constantsPath: ${constantsPath}, profilePath: ${profilePath}): ${err.message}`
+    );
   }
 }
 

@@ -1,0 +1,106 @@
+{
+  "miku": {
+    "name": "初音ミク",
+    "email": "miku@narumikr.link-sekai"
+  },
+  "rin": {
+    "name": "鏡音リン",
+    "email": "rin@narumikr.link-sekai"
+  },
+  "len": {
+    "name": "鏡音レン",
+    "email": "len@narumikr.link-sekai"
+  },
+  "luka": {
+    "name": "巡音ルカ",
+    "email": "luka@narumikr.link-sekai"
+  },
+  "meiko": {
+    "name": "MEIKO",
+    "email": "meiko@narumikr.link-sekai"
+  },
+  "kaito": {
+    "name": "KAITO",
+    "email": "kaito@narumikr.link-sekai"
+  },
+  "ichika": {
+    "name": "星乃 一歌",
+    "email": "ichika@narumikr.link-sekai"
+  },
+  "saki": {
+    "name": "天馬 咲希",
+    "email": "saki@narumikr.link-sekai"
+  },
+  "honami": {
+    "name": "望月 穂波",
+    "email": "honami@narumikr.link-sekai"
+  },
+  "shiho": {
+    "name": "日野森 志歩",
+    "email": "shiho@narumikr.link-sekai"
+  },
+  "minori": {
+    "name": "花里 みのり",
+    "email": "minori@narumikr.link-sekai"
+  },
+  "haruka": {
+    "name": "桐谷 遥",
+    "email": "haruka@narumikr.link-sekai"
+  },
+  "airi": {
+    "name": "桃井 愛莉",
+    "email": "airi@narumikr.link-sekai"
+  },
+  "shizuku": {
+    "name": "日野森 雫",
+    "email": "shizuku@narumikr.link-sekai"
+  },
+  "kohane": {
+    "name": "小豆沢 こはね",
+    "email": "kohane@narumikr.link-sekai"
+  },
+  "an": {
+    "name": "白石 杏",
+    "email": "an@narumikr.link-sekai"
+  },
+  "akito": {
+    "name": "東雲 彰人",
+    "email": "akito@narumikr.link-sekai"
+  },
+  "toya": {
+    "name": "青柳 冬弥",
+    "email": "toya@narumikr.link-sekai"
+  },
+  "tsukasa": {
+    "name": "天馬 司",
+    "email": "tsukasa@narumikr.link-sekai"
+  },
+  "emu": {
+    "name": "鳳 えむ",
+    "email": "emu@narumikr.link-sekai"
+  },
+  "nene": {
+    "name": "草薙 寧々",
+    "email": "nene@narumikr.link-sekai"
+  },
+  "rui": {
+    "name": "神代 類",
+    "email": "rui@narumikr.link-sekai"
+  },
+  "kanade": {
+    "name": "宵崎 奏",
+    "email": "kanade@narumikr.link-sekai"
+  },
+  "mafuyu": {
+    "name": "朝比奈 まふゆ",
+    "email": "mafuyu@narumikr.link-sekai"
+  },
+  "ena": {
+    "name": "東雲 絵名",
+    "email": "ena@narumikr.link-sekai"
+  },
+  "mizuki": {
+    "name": "暁山 瑞希",
+    "email": "mizuki@narumikr.link-sekai"
+  }
+}
