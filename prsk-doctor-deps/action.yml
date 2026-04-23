@@ -11,6 +11,10 @@ inputs:
     description: 'npm コマンドを実行するディレクトリ（モノレポなどで npm プロジェクトがサブディレクトリにある場合に指定）'
     required: false
     default: '.'
+  branch:
+    description: 'レポートをコミットするブランチ名。存在しない場合はデフォルトブランチから作成されます。このブランチからデフォルトブランチへのPRが自動的に作成されます。'
+    required: false
+    default: 'chore/npm-security-report'
 
 runs:
   using: 'composite'
@@ -24,10 +28,11 @@ runs:
           const { selectCharacter } = require('${{ github.action_path }}/prsk-doctor-deps.js');
           selectCharacter('${{ github.action_path }}', core);
 
-    - name: Checkout default branch
+    - name: Resolve branches and checkout target branch
       shell: bash
       env:
         DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        TARGET_BRANCH: ${{ inputs.branch }}
       run: |
         set -euo pipefail
 
@@ -41,9 +46,24 @@ runs:
           exit 1
         fi
 
+        target_branch="$TARGET_BRANCH"
+
+        if [ -z "$target_branch" ]; then
+          echo "branch が空です。有効なブランチ名を指定してください。"
+          exit 1
+        fi
+
+        if ! git check-ref-format --branch "$target_branch" > /dev/null 2>&1; then
+          echo "branch '${target_branch}' は有効なブランチ名ではありません。"
+          exit 1
+        fi
+
         git fetch origin "$default_branch"
-        git checkout -B "$default_branch" "origin/$default_branch"
+        git fetch origin "$target_branch" 2>/dev/null || true
+        git checkout -B "$target_branch" "origin/$default_branch"
+
         echo "RESOLVED_DEFAULT_BRANCH=$default_branch" >> "$GITHUB_ENV"
+        echo "RESOLVED_TARGET_BRANCH=$target_branch" >> "$GITHUB_ENV"
 
     - name: Run npm outdated
       shell: bash
@@ -75,6 +95,7 @@ runs:
       run: node "${{ github.action_path }}/prsk-generate-report.js"
 
     - name: Commit report
+      id: commit-report
       shell: bash
       env:
         GIT_AUTHOR_NAME: ${{ steps.select-character.outputs.character-name }}
@@ -84,12 +105,71 @@ runs:
       run: |
         set -euo pipefail
 
-        default_branch="$RESOLVED_DEFAULT_BRANCH"
-
         git add NPM_SECURITY_REPORT.md
         if git diff --staged --quiet; then
           echo "変更なし。コミットをスキップします。"
+          echo "committed=false" >> "$GITHUB_OUTPUT"
         else
-          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係レポート更新 🩺 "
-          git push origin "HEAD:$default_branch"
+          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係ヘルスレポート更新 🩺"
+          git push --force-with-lease origin "HEAD:$RESOLVED_TARGET_BRANCH"
+          echo "committed=true" >> "$GITHUB_OUTPUT"
         fi
+
+    - name: Create Pull Request
+      if: steps.commit-report.outputs.committed == 'true'
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          try {
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const head = process.env.RESOLVED_TARGET_BRANCH;
+            const base = process.env.RESOLVED_DEFAULT_BRANCH;
+
+            if (!head) {
+              core.setFailed('RESOLVED_TARGET_BRANCH が未設定です。');
+              return;
+            }
+            if (!base) {
+              core.setFailed('RESOLVED_DEFAULT_BRANCH が未設定です。');
+              return;
+            }
+
+            const characterKey = '${{ steps.select-character.outputs.character-key }}';
+            const characterIcon = '${{ steps.select-character.outputs.character-icon }}';
+            const characterName = '${{ steps.select-character.outputs.character-name }}';
+
+            const { getPrComment } = require('${{ github.action_path }}/prsk-generate-report.js');
+            const prComment = getPrComment('${{ github.action_path }}', characterKey);
+
+            const { data: pulls } = await github.rest.pulls.list({
+              owner, repo, head: `${owner}:${head}`, base, state: 'open',
+            });
+
+            if (pulls.length > 0) {
+              const existingPr = pulls[0];
+              await github.rest.pulls.update({
+                owner,
+                repo,
+                pull_number: existingPr.number,
+                title: `${characterIcon} | 依存関係ヘルスレポート更新 🩺`,
+                body: `${characterIcon} **${characterName}** ${prComment}\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
+              });
+              core.info(`既存のPRを更新しました: ${existingPr.html_url}`);
+              return;
+            }
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner,
+              repo,
+              title: `${characterIcon} | 依存関係ヘルスレポート更新 🩺`,
+              body: `${characterIcon} **${characterName}** ${prComment}\n\n\`NPM_SECURITY_REPORT.md\` の内容を確認してください。`,
+              head,
+              base,
+            });
+
+            core.info(`PRを作成しました: ${pr.html_url}`);
+          } catch (error) {
+            core.setFailed(`PR の作成に失敗しました: ${error.message}`);
+          }
