@@ -11,6 +11,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Configure git user as セカイの狭間
+      shell: bash
+      run: |
+        SEKAI_NAME=$(node -e "console.log(require('${{ github.action_path }}/../common/prsk-accounts.constants.json').sekai.name)")
+        SEKAI_EMAIL=$(node -e "console.log(require('${{ github.action_path }}/../common/prsk-accounts.constants.json').sekai.email)")
+        git config user.name "$SEKAI_NAME"
+        git config user.email "$SEKAI_EMAIL"
+
     - name: Set character label and comments
       uses: actions/github-script@v8
       with:
