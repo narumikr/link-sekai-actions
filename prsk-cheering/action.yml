@@ -14,8 +14,8 @@ runs:
     - name: Configure git user as SEKAI
       shell: bash
       run: |
-        SEKAI_NAME="セカイの狭間"
-        SEKAI_EMAIL="sekai@narumikr.link-sekai"
+        SEKAI_NAME=$(node -e "console.log(require('${{ github.action_path }}/../common/prsk-accounts.constants.json').sekai.name)")
+        SEKAI_EMAIL=$(node -e "console.log(require('${{ github.action_path }}/../common/prsk-accounts.constants.json').sekai.email)")
         git config user.name "$SEKAI_NAME"
         git config user.email "$SEKAI_EMAIL"
 
