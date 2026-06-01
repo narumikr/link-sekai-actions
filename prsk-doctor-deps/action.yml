@@ -110,7 +110,7 @@ runs:
           echo "変更なし。コミットをスキップします。"
           echo "committed=false" >> "$GITHUB_OUTPUT"
         else
-          git commit -m "${{ steps.select-character.outputs.character-icon }} | 依存関係ヘルスレポート更新 🩺"
+          git -c user.name="$GIT_COMMITTER_NAME" -c user.email="$GIT_COMMITTER_EMAIL" commit --author="$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>" -m "${{ steps.select-character.outputs.character-icon }} | 依存関係ヘルスレポート更新 🩺"
           git push --force-with-lease origin "HEAD:$RESOLVED_TARGET_BRANCH"
           echo "committed=true" >> "$GITHUB_OUTPUT"
         fi
