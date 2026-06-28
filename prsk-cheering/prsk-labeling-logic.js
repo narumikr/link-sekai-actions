@@ -71,7 +71,7 @@ function createLabelDescription(character) {
   return description;
 }
 
-// Create label or obtain existing label
+// Create label, or sync description/color if it already exists
 async function ensureLabel(github, context, labelName, description, color) {
   try {
     await github.rest.issues.getLabel({
@@ -79,7 +79,14 @@ async function ensureLabel(github, context, labelName, description, color) {
       repo: context.repo.repo,
       name: labelName,
     });
-    console.log(`Label already exists: ${labelName}`);
+    await github.rest.issues.updateLabel({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      name: labelName,
+      description: description,
+      color: color,
+    });
+    console.log(`Updated existing label: ${labelName}`);
   } catch (error) {
     if (error.status === 404) {
       await github.rest.issues.createLabel({
