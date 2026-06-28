@@ -58,6 +58,19 @@ function createLabelText(character) {
   return `${character.icon} | ${character.name}`;
 }
 
+// Create label description (GitHub label description must be <= 100 chars)
+function createLabelDescription(character) {
+  const { introduction, birthday, hobby } = character;
+  let description = `${introduction}【誕生日】${birthday}`;
+  if (hobby) {
+    description += `【趣味】${hobby}`;
+  }
+  if (description.length > 100) {
+    description = `${description.slice(0, 99)}…`;
+  }
+  return description;
+}
+
 // Create label or obtain existing label
 async function ensureLabel(github, context, labelName, description, color) {
   try {
@@ -101,6 +114,7 @@ module.exports = {
   selectVocaloidCharacter,
   isEncounter,
   createLabelText,
+  createLabelDescription,
   ensureLabel,
   addLabels,
 };
