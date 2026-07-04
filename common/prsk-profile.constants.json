@@ -2,131 +2,261 @@
   "miku": {
     "name": "初音ミク",
     "icon": "🎵",
-    "color": "33ccba"
+    "color": "33ccba",
+    "introduction": "ハツラツとした明るく可愛い歌声で様々なジャンルの歌を歌う。",
+    "birthday": "8月31日",
+    "hobby": "",
+    "speciality": "",
+    "weakPoint": ""
   },
   "rin": {
     "name": "鏡音リン",
     "icon": "🍊",
-    "color": "ffcc10"
+    "color": "ffcc10",
+    "introduction": "キュートで元気な見た目にぴったりな、チャーミングな歌声を持っている。",
+    "birthday": "12月27日",
+    "hobby": "",
+    "speciality": "",
+    "weakPoint": ""
   },
   "len": {
     "name": "鏡音レン",
     "icon": "🍌",
-    "color": "feee10"
+    "color": "feee10",
+    "introduction": "少年らしい芯のあるパワフルな歌声の中に感情表現の豊かさもかね備えている。",
+    "birthday": "12月27日",
+    "hobby": "",
+    "speciality": "",
+    "weakPoint": ""
   },
   "luka": {
     "name": "巡音ルカ",
     "icon": "🐟",
-    "color": "ffbbcc"
+    "color": "ffbbcc",
+    "introduction": "落ちついた物腰によく合う柔らかい歌声を持つ一方、時には情熱的な歌声を聴かせることも。バイリンガルで、日本語と英語で歌うことができる。",
+    "birthday": "1月30日",
+    "hobby": "",
+    "speciality": "",
+    "weakPoint": ""
   },
   "meiko": {
     "name": "MEIKO",
     "icon": "🍷",
-    "color": "dd4544"
+    "color": "dd4544",
+    "introduction": "安定感のある抜群の歌唱力と、女性ならではの優しく温かみのある声質を持っている。",
+    "birthday": "11月5日",
+    "hobby": "",
+    "speciality": "",
+    "weakPoint": ""
   },
   "kaito": {
     "name": "KAITO",
     "icon": "🍨",
-    "color": "3367cc"
+    "color": "3367cc",
+    "introduction": "清涼感のある素直な歌声で、男性らしい厚みのある低音から伸びのある高音まで歌いわける。",
+    "birthday": "2月17日",
+    "hobby": "",
+    "speciality": "",
+    "weakPoint": ""
   },
   "ichika": {
     "name": "星乃 一歌",
     "icon": "🎸",
-    "color": "33aaee"
+    "color": "33aaee",
+    "introduction": "クールに見えて、本当は友人想いの優しい少女。",
+    "birthday": "8月11日",
+    "hobby": "ミクの歌を聴くこと、育てているサボテンを眺める",
+    "speciality": "りんごの皮むき",
+    "weakPoint": "絶叫アトラクション"
   },
   "saki": {
     "name": "天馬 咲希",
     "icon": "🎹",
-    "color": "ffc800"
+    "color": "ffc800",
+    "introduction": "いつも明るく、笑顔を絶やさないムードメーカー。",
+    "birthday": "5月9日",
+    "hobby": "ファッション・メイク動画視聴、ビーズアクセサリー作り",
+    "speciality": "ヘアアレンジ、お手玉",
+    "weakPoint": "一人ぼっち"
   },
   "honami": {
     "name": "望月 穂波",
     "icon": "🥧",
-    "color": "ee6666"
+    "color": "ee6666",
+    "introduction": "文武両道の優等生で、包み込むような優しさを持つ。",
+    "birthday": "10月27日",
+    "hobby": "飼い犬の散歩、家庭菜園",
+    "speciality": "家事全般、水泳",
+    "weakPoint": "絵を描くこと"
   },
   "shiho": {
     "name": "日野森 志歩",
     "icon": "🍜",
-    "color": "bbdd22"
+    "color": "bbdd22",
+    "introduction": "音楽に対してストイックで、馴れ合いを嫌う一匹狼。",
+    "birthday": "1月8日",
+    "hobby": "好きなガールズバンドのライブに行く、ベースの練習・演奏",
+    "speciality": "書道",
+    "weakPoint": ""
   },
   "minori": {
     "name": "花里 みのり",
     "icon": "🌸",
-    "color": "ffc096"
+    "color": "ffc096",
+    "introduction": "純粋な頑張り屋。",
+    "birthday": "4月14日",
+    "hobby": "振りコピ、日記をつけること、動物の世話",
+    "speciality": "キャッチフレーズをつけること",
+    "weakPoint": "落ち着いた行動"
   },
   "haruka": {
     "name": "桐谷 遥",
     "icon": "🐧",
-    "color": "99ccff"
+    "color": "99ccff",
+    "introduction": "カリスマ的存在。",
+    "birthday": "10月5日",
+    "hobby": "ペンギングッズあつめ",
+    "speciality": "バスケットボール",
+    "weakPoint": "怠けること"
   },
   "airi": {
     "name": "桃井 愛莉",
     "icon": "🍑",
-    "color": "ffaacc"
+    "color": "ffaacc",
+    "introduction": "アイドルに対しての強い情熱や誇りを武器に、メンバーに活をいれる存在。",
+    "birthday": "3月19日",
+    "hobby": "アイドル研究、ショッピング",
+    "speciality": "料理、子供の面倒を見ること",
+    "weakPoint": "ネコ（アレルギー）"
   },
   "shizuku": {
     "name": "日野森 雫",
     "icon": "💧",
-    "color": "6be6cd"
+    "color": "6be6cd",
+    "introduction": "ミステリアスさを感じさせる容姿とは裏腹に、天然な一面を持つ。",
+    "birthday": "12月6日",
+    "hobby": "読書、散歩",
+    "speciality": "弓道、刺繍",
+    "weakPoint": "地図を読むこと、機械の操作"
   },
   "kohane": {
     "name": "小豆沢 こはね",
     "icon": "🐹",
-    "color": "ff6699"
+    "color": "ff6699",
+    "introduction": "内気な性格だったが、大河の修行により、自分の歌に自信を持てるようになった。",
+    "birthday": "3月2日",
+    "hobby": "父親が飼っているヘビのお世話",
+    "speciality": "写真",
+    "weakPoint": "人前に立つこと"
   },
   "an": {
     "name": "白石 杏",
     "icon": "⭐",
-    "color": "00bbdd"
+    "color": "00bbdd",
+    "introduction": "明るく裏表のない、WEEKEND GARAGEの看板娘。",
+    "birthday": "7月26日",
+    "hobby": "ミント栽培",
+    "speciality": "コーヒーや紅茶を淹れること",
+    "weakPoint": "幽霊、怪談話"
   },
   "akito": {
     "name": "東雲 彰人",
     "icon": "🥞",
-    "color": "ff7722"
+    "color": "ff7722",
+    "introduction": "伝説のイベント『RAD WEEKEND』を超えることを夢見て、血の滲むような練習を重ねる努力家。",
+    "birthday": "11月12日",
+    "hobby": "ファッションコーディネート",
+    "speciality": "ヒューマンビートボックス",
+    "weakPoint": "犬"
   },
   "toya": {
     "name": "青柳 冬弥",
     "icon": "☕️",
-    "color": "0077dd"
+    "color": "0077dd",
+    "introduction": "クラシックの名家に生まれた秀才。",
+    "birthday": "5月25日",
+    "hobby": "読書",
+    "speciality": "ピアノ、バイオリン",
+    "weakPoint": "高い所"
   },
   "tsukasa": {
     "name": "天馬 司",
     "icon": "🌟",
-    "color": "ffbb00"
+    "color": "ffbb00",
+    "introduction": "世界一のスターを目指す、ワンダーランズ×ショウタイムの座長。",
+    "birthday": "5月17日",
+    "hobby": "ミュージカル観劇、衣装づくり",
+    "speciality": "どんな時も即カッコいいポーズができる、ピアノ",
+    "weakPoint": "虫（特に多足）"
   },
   "emu": {
     "name": "鳳 えむ",
     "icon": "🍬",
-    "color": "ff66bb"
+    "color": "ff66bb",
+    "introduction": "底抜けに明るい、天真爛漫な性格。",
+    "birthday": "9月9日",
+    "hobby": "ご近所探検",
+    "speciality": "アクロバット、なんでも美味しく食べられる",
+    "weakPoint": "夕暮れ"
   },
   "nene": {
     "name": "草薙 寧々",
     "icon": "🤖",
-    "color": "33dd99"
+    "color": "33dd99",
+    "introduction": "世界で活躍するミュージカル俳優を目指す少女。",
+    "birthday": "7月20日",
+    "hobby": "対戦ゲーム、ミュージカル・映画鑑賞",
+    "speciality": "歌、機械の操作全般",
+    "weakPoint": "人通りの多い場所"
   },
   "rui": {
     "name": "神代 類",
     "icon": "🦄",
-    "color": "bb88ee"
+    "color": "bb88ee",
+    "introduction": "マイペースな天才演出家。",
+    "birthday": "6月24日",
+    "hobby": "ショーの演出を考えること、バルーンアート",
+    "speciality": "発明",
+    "weakPoint": "掃除、単純作業"
   },
   "kanade": {
     "name": "宵崎 奏",
     "icon": "🎼",
-    "color": "bb6688"
+    "color": "bb6688",
+    "introduction": "「誰かを幸せにする曲をつくり続けなければならない」と考えるようになり、曲を作り続けている。",
+    "birthday": "2月10日",
+    "hobby": "音楽を探して聴くこと、映画・漫画・アニメ・美術作品などを見ること",
+    "speciality": "感覚で時間を計れる",
+    "weakPoint": "直射日光、家事全般"
   },
   "mafuyu": {
     "name": "朝比奈 まふゆ",
     "icon": "❄️",
-    "color": "8888cc"
+    "color": "8888cc",
+    "introduction": "母親に『いい子』であることを求められ続け自分を見失っていたが、音楽活動をとおしてサークルを居場所だと認識するようになる。"
+    "birthday": "1月27日",
+    "hobby": "アクアリウム",
+    "speciality": "英会話",
+    "weakPoint": "わからない"
   },
   "ena": {
     "name": "東雲 絵名",
     "icon": "🎨",
-    "color": "ccaa88"
+    "color": "ccaa88",
+    "introduction": "絵の才能のなさに苦しみながらも努力し、酷評されても描き続ける心の強さを持つ。",
+    "birthday": "4月30日",
+    "hobby": "絵を描くこと、自撮り&SNSにアップ、エゴサーチ",
+    "speciality": "ファッション小物のリサーチ、料理の食材当て",
+    "weakPoint": "朝起きること"
   },
   "mizuki": {
     "name": "暁山 瑞希",
     "icon": "🎀",
-    "color": "ddaacc"
+    "color": "ddaacc",
+    "introduction": "可愛いものが大好きな気分屋。",
+    "birthday": "8月27日",
+    "hobby": "動画素材集め、コラージュ",
+    "speciality": "洋服のアレンジ",
+    "weakPoint": "熱い食べ物"
   }
 }

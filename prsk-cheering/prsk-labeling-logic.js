@@ -58,15 +58,30 @@ function createLabelText(character) {
   return `${character.icon} | ${character.name}`;
 }
 
-// Create label or obtain existing label
+// Create label description (GitHub label description must be <= 100 chars)
+function createLabelDescription(character) {
+  const { introduction, birthday, hobby } = character;
+  let description = `${introduction}【誕生日】${birthday}`;
+  if (hobby) {
+    description += `【趣味】${hobby}`;
+  }
+  if (description.length > 100) {
+    description = `${description.slice(0, 99)}…`;
+  }
+  return description;
+}
+
+// Create label, or sync description/color if it already exists
 async function ensureLabel(github, context, labelName, description, color) {
   try {
-    await github.rest.issues.getLabel({
+    await github.rest.issues.updateLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       name: labelName,
+      description: description,
+      color: color,
     });
-    console.log(`Label already exists: ${labelName}`);
+    console.log(`Updated existing label: ${labelName}`);
   } catch (error) {
     if (error.status === 404) {
       await github.rest.issues.createLabel({
@@ -101,6 +116,7 @@ module.exports = {
   selectVocaloidCharacter,
   isEncounter,
   createLabelText,
+  createLabelDescription,
   ensureLabel,
   addLabels,
 };

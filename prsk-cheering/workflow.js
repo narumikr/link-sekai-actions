@@ -2,13 +2,13 @@
  * Project SEKAI PR Cheering Workflow
  */
 
-const { replaceTemplate } = require('./utils');
 const {
   loadConstants,
   selectPrskCharacter,
   selectVocaloidCharacter,
   isEncounter,
   createLabelText,
+  createLabelDescription,
   ensureLabel,
   addLabels,
 } = require('./prsk-labeling-logic');
@@ -31,9 +31,7 @@ async function handler(github, context, actionPath) {
 
   const selectedPrskChar = selectPrskCharacter(prskCharacter);
   const prskLabelName = createLabelText(selectedPrskChar);
-  const prskLabelNameComment = replaceTemplate(selectedPrskChar.comment[0], {
-    prAuthor: prAuthor,
-  });
+  const prskLabelDescription = createLabelDescription(selectedPrskChar);
 
   let labelsToAdd = [prskLabelName];
   let commentBody = '';
@@ -44,19 +42,17 @@ async function handler(github, context, actionPath) {
   if (hasEncounter) {
     const selectedVocaloid = selectVocaloidCharacter(vocaloidCharacter);
     const vocaloidLabelName = createLabelText(selectedVocaloid);
-    const vocaloidComment = replaceTemplate(selectedVocaloid.comment[0], {
-      prAuthor: prAuthor,
-    });
+    const vocaloidLabelDescription = createLabelDescription(selectedVocaloid);
 
     labelsToAdd.push(vocaloidLabelName);
     commentBody = createCollaborationComment(selectedPrskChar, selectedVocaloid, prAuthor, collaborationScenarios);
 
-    await ensureLabel(github, context, vocaloidLabelName, vocaloidComment, selectedVocaloid.color);
+    await ensureLabel(github, context, vocaloidLabelName, vocaloidLabelDescription, selectedVocaloid.color);
   } else {
     commentBody = createSingleComment(selectedPrskChar, prAuthor);
   }
 
-  await ensureLabel(github, context, prskLabelName, prskLabelNameComment, selectedPrskChar.color);
+  await ensureLabel(github, context, prskLabelName, prskLabelDescription, selectedPrskChar.color);
   await addLabels(github, context, labelsToAdd);
   await postComment(github, context, commentBody);
 }
