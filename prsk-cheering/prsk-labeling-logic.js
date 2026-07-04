@@ -74,11 +74,6 @@ function createLabelDescription(character) {
 // Create label, or sync description/color if it already exists
 async function ensureLabel(github, context, labelName, description, color) {
   try {
-    await github.rest.issues.getLabel({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      name: labelName,
-    });
     await github.rest.issues.updateLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
