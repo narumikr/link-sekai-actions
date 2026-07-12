@@ -71,11 +71,9 @@ function createLabelDescription(character) {
   return description;
 }
 
-// Check if an existing label's description matches the desired description.
-// Name is the lookup key (fetched via getLabel by name), so it is guaranteed to match.
-// Color is not compared: it is written by updateLabel as a side effect when a
-// description change triggers an update, and independent color drift is out of scope.
-// GitHub returns description as null when unset; treat null and '' as equivalent.
+// Compare only label descriptions for sync checks.
+// Label name is already fixed by getLabel(name), and color drift is ignored.
+// GitHub may return null for an unset description, so treat null as ''.
 function isLabelInSync(existing, desired) {
   const existingDescription = existing.description ?? '';
   const desiredDescription = desired.description ?? '';
