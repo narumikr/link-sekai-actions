@@ -71,17 +71,25 @@ function createLabelDescription(character) {
   return description;
 }
 
-// Create label, or sync description/color if it already exists
+// Compare only label descriptions for sync checks.
+// Label name is already fixed by getLabel(name), and color drift is ignored.
+// GitHub may return null for an unset description, so treat null as ''.
+function isLabelInSync(existing, desired) {
+  const existingDescription = existing.description ?? '';
+  const desiredDescription = desired.description ?? '';
+  return existingDescription === desiredDescription;
+}
+
+// Create label, or sync description/color only when it drifts from the desired state.
 async function ensureLabel(github, context, labelName, description, color) {
+  let existing;
   try {
-    await github.rest.issues.updateLabel({
+    const res = await github.rest.issues.getLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       name: labelName,
-      description: description,
-      color: color,
     });
-    console.log(`Updated existing label: ${labelName}`);
+    existing = res.data;
   } catch (error) {
     if (error.status === 404) {
       await github.rest.issues.createLabel({
@@ -92,10 +100,24 @@ async function ensureLabel(github, context, labelName, description, color) {
         color: color,
       });
       console.log(`Created label: ${labelName}`);
-    } else {
-      throw error;
+      return;
     }
+    throw error;
   }
+
+  if (isLabelInSync(existing, { description })) {
+    console.log(`Label already in sync: ${labelName}`);
+    return;
+  }
+
+  await github.rest.issues.updateLabel({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    name: labelName,
+    description: description,
+    color: color,
+  });
+  console.log(`Updated label to sync: ${labelName}`);
 }
 
 // Add label to PR
@@ -117,6 +139,7 @@ module.exports = {
   isEncounter,
   createLabelText,
   createLabelDescription,
+  isLabelInSync,
   ensureLabel,
   addLabels,
 };
