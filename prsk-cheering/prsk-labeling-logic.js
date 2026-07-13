@@ -58,15 +58,38 @@ function createLabelText(character) {
   return `${character.icon} | ${character.name}`;
 }
 
-// Create label or obtain existing label
+// Create label description (GitHub label description must be <= 100 chars)
+function createLabelDescription(character) {
+  const { introduction, birthday, hobby } = character;
+  let description = `${introduction}【誕生日】${birthday}`;
+  if (hobby) {
+    description += `【趣味】${hobby}`;
+  }
+  if (description.length > 100) {
+    description = `${description.slice(0, 99)}…`;
+  }
+  return description;
+}
+
+// Compare only label descriptions for sync checks.
+// Label name is already fixed by getLabel(name), and color drift is ignored.
+// GitHub may return null for an unset description, so treat null as ''.
+function isLabelInSync(existing, desired) {
+  const existingDescription = existing.description ?? '';
+  const desiredDescription = desired.description ?? '';
+  return existingDescription === desiredDescription;
+}
+
+// Create label, or sync description/color only when it drifts from the desired state.
 async function ensureLabel(github, context, labelName, description, color) {
+  let existing;
   try {
-    await github.rest.issues.getLabel({
+    const res = await github.rest.issues.getLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       name: labelName,
     });
-    console.log(`Label already exists: ${labelName}`);
+    existing = res.data;
   } catch (error) {
     if (error.status === 404) {
       await github.rest.issues.createLabel({
@@ -77,10 +100,24 @@ async function ensureLabel(github, context, labelName, description, color) {
         color: color,
       });
       console.log(`Created label: ${labelName}`);
-    } else {
-      throw error;
+      return;
     }
+    throw error;
   }
+
+  if (isLabelInSync(existing, { description })) {
+    console.log(`Label already in sync: ${labelName}`);
+    return;
+  }
+
+  await github.rest.issues.updateLabel({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    name: labelName,
+    description: description,
+    color: color,
+  });
+  console.log(`Updated label to sync: ${labelName}`);
 }
 
 // Add label to PR
@@ -101,6 +138,8 @@ module.exports = {
   selectVocaloidCharacter,
   isEncounter,
   createLabelText,
+  createLabelDescription,
+  isLabelInSync,
   ensureLabel,
   addLabels,
 };
