@@ -21,7 +21,7 @@ runs:
   steps:
     - name: Select prsk character
       id: select-character
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         github-token: ${{ inputs.github-token }}
         script: |
@@ -117,7 +117,7 @@ runs:
 
     - name: Create Pull Request
       if: steps.commit-report.outputs.committed == 'true'
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         github-token: ${{ inputs.github-token }}
         script: |
