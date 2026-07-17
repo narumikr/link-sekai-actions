@@ -59,7 +59,7 @@ jobs:
 
       - name: Generate release notes
         id: generate-notes
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const currentTag = '${{ steps.get-previous-tag.outputs.current_tag }}';
@@ -134,7 +134,7 @@ jobs:
             console.log('Generated release notes:\n' + releaseNotes);
 
       - name: Create GitHub Release
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const currentTag = '${{ steps.get-previous-tag.outputs.current_tag }}';
