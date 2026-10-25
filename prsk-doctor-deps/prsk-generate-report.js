@@ -32,6 +32,8 @@ const characterName = process.env.CHARACTER_NAME;
 const characterIcon = process.env.CHARACTER_ICON;
 const characterComment = process.env.CHARACTER_COMMENT;
 
+const packageManager = process.env.PACKAGE_MANAGER || 'npm';
+
 const runnerTemp = process.env.RUNNER_TEMP;
 const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
 
@@ -82,9 +84,50 @@ function formatAuditResult(auditJson) {
   return lines.join('\n');
 }
 
+// pnpm audit --json は npm v6 互換の形式（advisories 単位、total なし）で出力される
+function formatPnpmAuditResult(auditJson) {
+  const vulns = auditJson.metadata?.vulnerabilities ?? {};
+  const { critical = 0, high = 0, moderate = 0, low = 0, info = 0 } = vulns;
+  const total = critical + high + moderate + low + info;
+
+  if (total === 0) return '（脆弱性は検出されませんでした）';
+
+  const lines = [
+    `合計 ${total} 件の脆弱性が検出されました`,
+    '',
+    `critical : ${critical}`,
+    `high     : ${high}`,
+    `moderate : ${moderate}`,
+    `low      : ${low}`,
+    `info     : ${info}`,
+    '',
+    '----------------------------------------',
+  ];
+
+  for (const advisory of Object.values(auditJson.advisories ?? {})) {
+    lines.push('');
+    lines.push(`■ ${advisory.module_name} [${advisory.severity.toUpperCase()}]`);
+    lines.push(`  影響バージョン: ${advisory.vulnerable_versions}`);
+    if (advisory.title) lines.push(`  ${advisory.title}`);
+    if (advisory.url)   lines.push(`  ${advisory.url}`);
+
+    // patched_versions が '<0.0.0' の場合は修正版が存在しない
+    if (advisory.patched_versions && advisory.patched_versions !== '<0.0.0') {
+      lines.push(`  修正: ${advisory.patched_versions} へのアップデートが必要`);
+    } else {
+      lines.push(`  修正: 現時点では自動修正不可`);
+    }
+  }
+
+  return lines.join('\n');
+}
+
 let auditOutput;
 try {
-  auditOutput = formatAuditResult(JSON.parse(auditRaw));
+  const auditJson = JSON.parse(auditRaw);
+  auditOutput = auditJson.advisories
+    ? formatPnpmAuditResult(auditJson)
+    : formatAuditResult(auditJson);
 } catch {
   auditOutput = auditRaw || '（結果を取得できませんでした）';
 }
@@ -97,7 +140,7 @@ const report = `# 🩺 依存関係ヘルスレポート
 
 ---
 
-## 📦 npm outdated
+## 📦 ${packageManager} outdated
 
 \`\`\`
 ${outdatedOutput}
@@ -105,7 +148,7 @@ ${outdatedOutput}
 
 ---
 
-## 🔒 npm audit
+## 🔒 ${packageManager} audit
 
 \`\`\`
 ${auditOutput}

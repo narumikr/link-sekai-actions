@@ -1,5 +1,5 @@
 name: 'Doctor Deps with Project SEKAI'
-description: 'npm outdated と npm audit を実行し、依存関係ヘルスレポートをコミットします'
+description: 'npm（pnpm-lock.yaml がある場合は pnpm）で outdated と audit を実行し、依存関係ヘルスレポートをコミットします'
 author: 'narumikr'
 
 inputs:
@@ -65,26 +65,52 @@ runs:
         echo "RESOLVED_DEFAULT_BRANCH=$default_branch" >> "$GITHUB_ENV"
         echo "RESOLVED_TARGET_BRANCH=$target_branch" >> "$GITHUB_ENV"
 
-    - name: Run npm outdated
+    - name: Run outdated
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
-          npm ci --ignore-scripts --no-audit --no-fund
-        elif [ -f package.json ]; then
-          npm install --ignore-scripts --no-audit --no-fund
-        else
-          echo "package.json が見つからないため npm コマンドをスキップします。" > "$RUNNER_TEMP/npm-outdated.txt"
+        set -euo pipefail
+
+        if [ ! -f package.json ]; then
+          echo "package.json が見つからないため依存関係チェックをスキップします。" > "$RUNNER_TEMP/npm-outdated.txt"
           echo '{}' > "$RUNNER_TEMP/npm-audit.json"
+          echo "SKIP_AUDIT=true" >> "$GITHUB_ENV"
           exit 0
         fi
 
-        npm outdated > "$RUNNER_TEMP/npm-outdated.txt" 2>&1 || true
+        if [ -f pnpm-lock.yaml ]; then
+          echo "PACKAGE_MANAGER=pnpm" >> "$GITHUB_ENV"
 
-    - name: Run npm audit
+          # pnpm/action-setup などで導入済みならそれを使い、未導入なら packageManager フィールドのバージョンを入れる
+          if ! command -v pnpm > /dev/null 2>&1; then
+            pnpm_spec="$(node -p "const pm = require('./package.json').packageManager || ''; pm.startsWith('pnpm@') ? pm.split('+')[0] : 'pnpm@latest'")"
+            npm install -g "$pnpm_spec" --no-audit --no-fund
+          fi
+
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm outdated > "$RUNNER_TEMP/npm-outdated.txt" 2>&1 || true
+        else
+          echo "PACKAGE_MANAGER=npm" >> "$GITHUB_ENV"
+
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            npm ci --ignore-scripts --no-audit --no-fund
+          else
+            npm install --ignore-scripts --no-audit --no-fund
+          fi
+
+          npm outdated > "$RUNNER_TEMP/npm-outdated.txt" 2>&1 || true
+        fi
+
+    - name: Run audit
+      if: env.SKIP_AUDIT != 'true'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-      run: npm audit --json > "$RUNNER_TEMP/npm-audit.json" 2>/dev/null || true
+      run: |
+        if [ "$PACKAGE_MANAGER" = "pnpm" ]; then
+          pnpm audit --json > "$RUNNER_TEMP/npm-audit.json" 2>/dev/null || true
+        else
+          npm audit --json > "$RUNNER_TEMP/npm-audit.json" 2>/dev/null || true
+        fi
 
     - name: Generate report
       shell: bash
